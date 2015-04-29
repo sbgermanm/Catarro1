@@ -7,4 +7,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="etNombrePersona">Nombre</string>
+    <string name="fechaNacimiento">Fecha Nacimiento</string>
+    <string name="textLabelNombre">Nombre:</string>
+    <string name="textLabelFechaNac">Fecha nacimiento:</string>
+    <string name="action_guardar">guardar</string>
+    <string name="action_cancelar">cancelar</string>
+    <string name="action_nuevaPersona">action_nuevaPersona</string>
+    <string name="title_activity_persona">Persona</string>
 </resources>

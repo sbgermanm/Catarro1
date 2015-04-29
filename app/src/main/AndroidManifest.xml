@@ -20,6 +20,10 @@
             android:name=".NuevaPersona"
             android:label="@string/title_activity_nueva_persona" >
         </activity>
+        <activity
+            android:name=".Persona"
+            android:label="@string/title_activity_persona" >
+        </activity>
     </application>
 
 </manifest>

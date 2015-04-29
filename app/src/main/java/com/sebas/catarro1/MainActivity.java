@@ -3,22 +3,73 @@ package com.sebas.catarro1;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.sebas.catarro1.db.BaseDePatos;
+import com.sebas.catarro1.db.dataObjects.PersonaDb;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
+    BaseDePatos baseDePatos;
+    LinearLayout linearLayout;
+
+    @SuppressWarnings("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        baseDePatos = BaseDePatos.getInstance(this.getApplicationContext());
 
-        Button nuevoPaciente = (Button) findViewById(R.id.btCrearPaciente);
-        nuevoPaciente.setOnClickListener(this);
+        linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        setContentView(linearLayout);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        linearLayout.removeAllViewsInLayout();
+        mostrarPacientes();
+    }
+
+
+    private void mostrarPacientes() {
+        int count = 0;
+
+        LinearLayout row = new LinearLayout(this);
+        row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        linearLayout.addView(row);
+
+        for (PersonaDb personaDb : PersonaDb.selectAll(baseDePatos)) {
+            //Toast.makeText(this, personaDb.getNombre(), Toast.LENGTH_SHORT).show();
+            Log.d("sebas", personaDb.getNombre());
+
+            if (count%2 == 0){
+                row = new LinearLayout(this);
+                row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+                linearLayout.addView(row);
+            }
+
+            count++;
+            Button b = new Button(this);
+            b.setText(personaDb.getNombre());
+            b.setId(personaDb.getIdPersona());
+            b.setOnClickListener(this);
+            b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            row.addView(b);
+
+        }
+
     }
 
 
@@ -41,18 +92,26 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             return true;
         }
 
+        if (id == R.id.nuevaPersona)
+        {
+            Toast.makeText(this, "nueva persoana", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, NuevaPersona.class);
+            startActivity(i);
+
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.btCrearPaciente:
-                    Toast.makeText(this, "nueva persoana", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(this, NuevaPersona.class);
-                    startActivity(i);
-                break;
+        int identidad = v.getId();
+        switch (identidad) {
+            default:
+                Toast.makeText(this, "pulsado: " + identidad, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, Persona.class);
+                i.putExtra("ID_PERSONA", identidad);
+                startActivity(i);
         }
     }
 }
