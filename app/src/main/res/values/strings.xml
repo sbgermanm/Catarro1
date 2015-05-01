@@ -22,4 +22,5 @@
     <string name="pesoPersona">0</string>
     <string name="etPesoPersona">0</string>
     <string name="labelKg">Kg</string>
+    <string name="action_nuevoCatarro">nuevoCatarro</string>
 </resources>

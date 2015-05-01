@@ -2,15 +2,16 @@ package com.sebas.catarro1;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
+
+import java.text.ParseException;
 
 
 public class ActividadPersona extends ActionBarActivity {
@@ -63,10 +64,21 @@ public class ActividadPersona extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.actionBarNuevoCatarro) {
+            //lanzarPantallaNuevoCatarro
+
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
+
 }
