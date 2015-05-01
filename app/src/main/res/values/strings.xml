@@ -14,4 +14,11 @@
     <string name="action_cancelar">cancelar</string>
     <string name="action_nuevaPersona">action_nuevaPersona</string>
     <string name="title_activity_persona">Persona</string>
+    <string name="edad" />
+    <string name="labelPeso">Peso:</string>
+    <string name="labelNobre">Nombre:</string>
+    <string name="etPeso">0</string>
+    <string name="etPeso2">0</string>
+    <string name="pesoPersona">0</string>
+    <string name="etPesoPersona">0</string>
 </resources>

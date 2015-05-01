@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -95,7 +94,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         if (id == R.id.nuevaPersona)
         {
             Toast.makeText(this, "nueva persoana", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, NuevaPersona.class);
+            Intent i = new Intent(this, ActividadNuevaPersona.class);
             startActivity(i);
 
             return true;
@@ -108,8 +107,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         int identidad = v.getId();
         switch (identidad) {
             default:
-                Toast.makeText(this, "pulsado: " + identidad, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, Persona.class);
+                //Toast.makeText(this, "pulsado: " + identidad, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, ActividadPersona.class);
                 i.putExtra("ID_PERSONA", identidad);
                 startActivity(i);
         }

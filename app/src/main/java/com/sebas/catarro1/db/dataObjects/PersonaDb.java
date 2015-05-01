@@ -6,51 +6,100 @@ import android.database.Cursor;
 import com.sebas.catarro1.db.BaseDePatos;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 public class PersonaDb implements DataBaseTable {
 
-	private static final String TABLA_PERSONA = "persona";
-	private static final String COLUMN_ID_PERSONA = "idPersona";
-	private static final String COLUMN_FECHA_NACIMIENTO = "fecha_nacimiento";
-	private static final String COLUMN_NOMBRE_PERSONA = "nombre";
-	
-	Integer idPersona;
-	String nombre;
-	Long fechaNacimiento;
-
-	
-	
-	public Long getFechaNacimiento() {
-		return fechaNacimiento;
-	}
 
 
+    // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
+    public static List<PersonaDb> selectAll(BaseDePatos baseDePatos) {
+        Cursor cursor = baseDePatos.selectAll(TABLA_PERSONA);
+        int num = cursor.getCount();
+        ArrayList<PersonaDb> personas = new ArrayList<>(num);
+        while (cursor.moveToNext()) {
+            PersonaDb p = getPersonFromCursor(cursor);
+            personas.add(p);
+        }
+        cursor.close();
+        return personas;
+    }
 
 
-	public void setFechaNacimiento(Long fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
+    public static PersonaDb findById(BaseDePatos baseDePatos, Integer idPersona) {
+        Cursor cursor = baseDePatos.findById(TABLA_PERSONA, COLUMNS.ID_PERSONA.toString(), idPersona);
+        cursor.moveToFirst();
+        PersonaDb p = getPersonFromCursor(cursor);
+        cursor.close();
+        return p;
+    }
 
 
 
-	String createTable;
-	
-	public static String getCreateTable() {
-		return  "CREATE TABLE " +
-	             TABLA_PERSONA + "("
-	             + COLUMN_ID_PERSONA + " INTEGER PRIMARY KEY," + COLUMN_NOMBRE_PERSONA 
-	             + " TEXT," + COLUMN_FECHA_NACIMIENTO 
-	             + " INTEGER" + ")";
-	}
-	
-	
 
 
-	public String getNombre() {
-		return nombre;
-	}
+    public static final String TABLA_PERSONA = "persona";
+
+    private static enum COLUMNS {ID_PERSONA, NOMBRE, FECHA_NACIMEINTO, PESO};
+
+    private static PersonaDb getPersonFromCursor(Cursor cursor) {
+        Integer id = cursor.getInt(0);
+        String nombre = cursor.getString(1);
+        Long fechaNac = cursor.getLong(2);
+        Integer peso = cursor.getInt(3);
+        PersonaDb p = new PersonaDb(id, nombre, peso, fechaNac);
+        return p;
+    }
+
+
+
+
+
+
+    Integer idPersona;
+    String nombre;
+
+
+    Integer peso;
+    Long fechaNacimiento;
+
+    public Integer getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Integer peso) {
+        this.peso = peso;
+    }
+
+    public Long getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+
+    public void setFechaNacimiento(Long fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+
+    String createTable;
+
+    public static String getCreateTable() {
+        return "CREATE TABLE " +
+                TABLA_PERSONA + "("
+                + COLUMNS.ID_PERSONA + " INTEGER PRIMARY KEY, "
+                + COLUMNS.NOMBRE + " TEXT, "
+                + COLUMNS.FECHA_NACIMEINTO + " INTEGER, "
+                + COLUMNS.PESO + " INTEGER"
+                + ")";
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
 
     public Integer getIdPersona() {
         return idPersona;
@@ -61,49 +110,55 @@ public class PersonaDb implements DataBaseTable {
     }
 
     public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public PersonaDb(Integer id, String nombre, Long fechaNacimiento) {
-		super();
-		this.idPersona = id;
-		this.nombre = nombre;
-		this.fechaNacimiento = fechaNacimiento;
-	}
-	
-	public PersonaDb(String nombre, Long fechaNacimiento) {
-		super();
-		this.nombre = nombre;
-		this.fechaNacimiento = fechaNacimiento;
-	}
-	
+        this.nombre = nombre;
+    }
 
-	
-	public void addToDB(BaseDePatos dbHelper){
-		ContentValues values = new ContentValues();
-        values.put(COLUMN_FECHA_NACIMIENTO,this.getFechaNacimiento());
-        values.put(COLUMN_ID_PERSONA,this.getIdPersona());
-        values.put(COLUMN_NOMBRE_PERSONA,this.getNombre());
+    public PersonaDb(Integer id, String nombre, Integer peso, Long fechaNacimiento) {
+        super();
+        this.idPersona = id;
+        this.nombre = nombre;
+        this.peso = peso;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public PersonaDb(String nombre, Integer peso, Long fechaNacimiento) {
+        super();
+        this.nombre = nombre;
+        this.peso = peso;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+
+    public void addToDB(BaseDePatos dbHelper) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMNS.FECHA_NACIMEINTO.toString(), this.getFechaNacimiento());
+        values.put(COLUMNS.ID_PERSONA.toString(), this.getIdPersona());
+        values.put(COLUMNS.NOMBRE.toString(), this.getNombre());
+        values.put(COLUMNS.PESO.toString(), this.getPeso());
 
         dbHelper.add(TABLA_PERSONA, values);
-	}
-	
-	public static List<PersonaDb> selectAll(BaseDePatos baseDePatos){
-        Cursor cursor = baseDePatos.selectAll(TABLA_PERSONA);
-        int num = cursor.getCount();
-        ArrayList<PersonaDb> personas = new ArrayList<PersonaDb>(num);
-        while (cursor.moveToNext()){
-            Integer id = cursor.getInt(0);
-            String nombre = cursor.getString(1);
-            Long fechaNac = cursor.getLong(2);
-            PersonaDb p = new PersonaDb(id, nombre, fechaNac );
-            personas.add(p);
-        }
-        cursor.close();
-        return personas;
     }
-	
-	
-	
-	
+
+
+    public int getEdad(){
+        Date hoy = new Date();
+        Calendar calHoy = Calendar.getInstance();
+        calHoy.setTime(hoy);
+
+        Calendar calNac = Calendar.getInstance();
+        calNac.setTimeInMillis(this.fechaNacimiento);
+
+        int annoNac = calNac.get(Calendar.YEAR);
+        int annoHoy = calHoy.get(Calendar.YEAR);
+
+        int anos = annoHoy-annoNac;
+
+        int diaAnoNac = calNac.get(Calendar.DAY_OF_YEAR);
+        int diaAnoHoy = calHoy.get(Calendar.DAY_OF_YEAR);
+
+        if (diaAnoHoy<diaAnoNac) anos--;
+
+        return anos;
+    }
+
 }

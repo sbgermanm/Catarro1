@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="com.sebas.catarro1.NuevaPersona">
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.sebas.catarro1.ActividadNuevaPersona">
     <item android:id="@+id/cancelar" android:title="@string/action_cancelar"
         android:orderInCategory="100" app:showAsAction="always" android:icon="@drawable/ic_action_cancel"/>
     <item android:id="@+id/guardar" android:title="@string/action_guardar"

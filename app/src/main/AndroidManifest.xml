@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NuevaPersona"
+            android:name=".ActividadNuevaPersona"
             android:label="@string/title_activity_nueva_persona" >
         </activity>
         <activity
-            android:name=".Persona"
+            android:name=".ActividadPersona"
             android:label="@string/title_activity_persona" >
         </activity>
     </application>

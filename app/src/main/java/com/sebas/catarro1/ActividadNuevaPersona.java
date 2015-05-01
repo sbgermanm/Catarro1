@@ -3,7 +3,6 @@ package com.sebas.catarro1;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -23,10 +22,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class NuevaPersona extends ActionBarActivity {
+public class ActividadNuevaPersona extends ActionBarActivity {
 
     TextView fechaNacimiento;
-    EditText nombrePersona;
+    EditText etNombrePersona;
+    EditText etPeso;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd - MMMM - yyyy");
 
 
@@ -38,7 +39,8 @@ public class NuevaPersona extends ActionBarActivity {
         fechaNacimiento = (TextView) findViewById(R.id.fechaNacDatePicker);
         fechaNacimiento.setText(dameFechaComoString(2000, 1, 1));
 
-        nombrePersona = (EditText)  findViewById(R.id.etNombrePersona);
+        etNombrePersona = (EditText)  findViewById(R.id.etNombrePersona);
+        etPeso = (EditText)  findViewById(R.id.etPeso);
     }
 
 
@@ -84,7 +86,8 @@ public class NuevaPersona extends ActionBarActivity {
         BaseDePatos baseDePatos = BaseDePatos.getInstance(this.getApplicationContext());
         String fechaNacimientoText = String.valueOf(fechaNacimiento.getText());
         Date date = sdf.parse(fechaNacimientoText);
-        PersonaDb persona = new PersonaDb(nombrePersona.getText().toString(), date.getTime() );
+        Integer peso = new Integer(etPeso.getText().toString());
+        PersonaDb persona = new PersonaDb(etNombrePersona.getText().toString(),peso, date.getTime() );
         persona.addToDB(baseDePatos);
 
 
@@ -92,11 +95,14 @@ public class NuevaPersona extends ActionBarActivity {
 
     private boolean bDatosOk() {
         boolean bResult=true;
-        String nommbre = nombrePersona.getText().toString().trim();
+        String nommbre = etNombrePersona.getText().toString().trim();
         if (nommbre.length() == 0)
         {
             bResult = false;
         }
+        Integer peso = new Integer(etPeso.getText().toString());
+        if (peso < 0 ) bResult = false;
+        if (peso > 200) bResult = false;
         return bResult;
     }
 

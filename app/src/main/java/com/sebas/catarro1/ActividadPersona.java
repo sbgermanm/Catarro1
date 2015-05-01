@@ -2,17 +2,48 @@ package com.sebas.catarro1;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.sebas.catarro1.db.BaseDePatos;
+import com.sebas.catarro1.db.dataObjects.PersonaDb;
 
 
-public class Persona extends ActionBarActivity {
+public class ActividadPersona extends ActionBarActivity {
+
+    BaseDePatos baseDePatos ;
+    TextView etNombre;
+    EditText etPeso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persona);
         int id_persona = getIntent().getExtras().getInt("ID_PERSONA");
+        etNombre = (TextView) findViewById(R.id.etNombrePersonaEdad);
+        etPeso = (EditText) findViewById(R.id.etPesoPersona);
+
+        baseDePatos = BaseDePatos.getInstance(getApplicationContext());
+
+        recuperarPersona(id_persona);
+
+    }
+
+    private void recuperarPersona(int id_persona) {
+        PersonaDb personaDb = PersonaDb.findById(baseDePatos, id_persona);
+        String aux = personaDb.getNombre() ;
+        int edad = personaDb.getEdad();
+        aux = aux + ", " + edad + " años";
+
+        etNombre.setText(aux);
+        int peso = personaDb.getPeso();
+        etPeso.setText(""+peso);
+
 
     }
 

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
 
@@ -59,7 +60,7 @@ public class BaseDePatos extends SQLiteOpenHelper {
     }
 
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "anotatomasDB.db";
 
 
@@ -68,13 +69,14 @@ public class BaseDePatos extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREAR_TABLA_PERSONA = PersonaDb.getCreateTable();
+        Log.d("sebas", CREAR_TABLA_PERSONA);
         db.execSQL(CREAR_TABLA_PERSONA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
-//		onCreate(db);
+		db.execSQL("DROP TABLE IF EXISTS " + PersonaDb.TABLA_PERSONA);
+		onCreate(db);
     }
 
 
@@ -82,9 +84,7 @@ public class BaseDePatos extends SQLiteOpenHelper {
 
 
     public void add(String tabla, ContentValues values) {
-
         SQLiteDatabase db = this.getWritableDatabase();
-
         db.insert(tabla, null, values);
         //db.close();
     }
@@ -94,7 +94,15 @@ public class BaseDePatos extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(tableName, null, null, null, null, null, null, null);
-        //db.close();
+        return cursor;
+    }
+
+
+    public Cursor findById(String tableName, String idColumnName, Integer id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(tableName, null, idColumnName + " = " +id , null, null, null, null, null);
         return cursor;
     }
 }
