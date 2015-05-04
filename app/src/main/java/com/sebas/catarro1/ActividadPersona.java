@@ -1,38 +1,48 @@
 package com.sebas.catarro1;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
 
-import java.text.ParseException;
 
-
-public class ActividadPersona extends ActionBarActivity {
+public class ActividadPersona extends ActionBarActivity implements EliminarPersonaDialogFragment.EliminarPersonaDialogListener {
 
     BaseDePatos baseDePatos ;
     TextView etNombre;
     EditText etPeso;
-
+    Integer personaID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persona);
+
         int id_persona = getIntent().getExtras().getInt("ID_PERSONA");
+        personaID = new Integer(id_persona);
+
         etNombre = (TextView) findViewById(R.id.etNombrePersonaEdad);
         etPeso = (EditText) findViewById(R.id.etPesoPersona);
 
         baseDePatos = BaseDePatos.getInstance(getApplicationContext());
 
-        recuperarPersona(id_persona);
+        //recuperarPersona(id_persona);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recuperarPersona(personaID);
     }
 
     private void recuperarPersona(int id_persona) {
@@ -71,14 +81,36 @@ public class ActividadPersona extends ActionBarActivity {
             return true;
         }
 
+        if (id == R.id.actionBarEliminarPersona) {
+            //lanzarPantallaNuevoCatarro
+            DialogFragment df = new EliminarPersonaDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("TITULO", getString(R.string.message_dialog_eliminar_persona));
+            df.setArguments(bundle);
+            df.show(getFragmentManager(), "eliminarPersonita");
+            return true;
+        }
+
+        if (id == R.id.actionBarModificarPersona) {
+            //lanzarPantallaNuevoCatarro
+            Intent i = new Intent(this, ActividadNuevaPersona.class);
+            i.putExtra("ID_PERSONA", personaID);
+            startActivity(i);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        PersonaDb.delete(baseDePatos, personaID);
+        this.finish();
+    }
 
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
 
-
-
-
-
+    }
 }

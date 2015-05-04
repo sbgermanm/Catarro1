@@ -105,4 +105,16 @@ public class BaseDePatos extends SQLiteOpenHelper {
         Cursor cursor = db.query(tableName, null, idColumnName + " = " +id , null, null, null, null, null);
         return cursor;
     }
+
+    public void delete(String tabla, String primaryKey, Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(tabla, primaryKey + "=" + id, null);
+
+    }
+
+    public void update(String tabla, ContentValues values, String primaryKey, Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(tabla, values, primaryKey + "=" + id, null);
+
+    }
 }

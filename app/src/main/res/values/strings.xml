@@ -23,4 +23,9 @@
     <string name="etPesoPersona">0</string>
     <string name="labelKg">Kg</string>
     <string name="action_nuevoCatarro">nuevoCatarro</string>
+    <string name="actionBar_modificarPersona">Modificar persona</string>
+    <string name="action_eliminarPersona">Eliminar persona</string>
+    <string name="message_dialog_eliminar_persona">¿Eliminar persona?</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
 </resources>

@@ -28,7 +28,6 @@ public class PersonaDb implements DataBaseTable {
         return personas;
     }
 
-
     public static PersonaDb findById(BaseDePatos baseDePatos, Integer idPersona) {
         Cursor cursor = baseDePatos.findById(TABLA_PERSONA, COLUMNS.ID_PERSONA.toString(), idPersona);
         cursor.moveToFirst();
@@ -37,54 +36,81 @@ public class PersonaDb implements DataBaseTable {
         return p;
     }
 
+    public static void delete(BaseDePatos baseDePatos, Integer personaID) {
+        baseDePatos.delete(TABLA_PERSONA, COLUMNS.ID_PERSONA.toString(), personaID);
+    }
+
+
+    public void addToDB(BaseDePatos dbHelper) {
+        ContentValues values = dameContentValues();
+        dbHelper.add(TABLA_PERSONA, values);
+    }
+
+    private ContentValues dameContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(COLUMNS.FECHA_NACIMEINTO.toString(), this.getFechaNacimiento());
+//        values.put(COLUMNS.ID_PERSONA.toString(), this.getIdPersona());
+        values.put(COLUMNS.NOMBRE.toString(), this.getNombre());
+        values.put(COLUMNS.PESO.toString(), this.getPeso());
+        return values;
+    }
+
+
+    public void updateToDB(BaseDePatos baseDePatos) {
+        ContentValues values = dameContentValues();
+        baseDePatos.update(TABLA_PERSONA, values, COLUMNS.ID_PERSONA.toString(), this.idPersona);
+    }
+
+
 
 
 
 
     public static final String TABLA_PERSONA = "persona";
 
+
     private static enum COLUMNS {ID_PERSONA, NOMBRE, FECHA_NACIMEINTO, PESO};
 
     private static PersonaDb getPersonFromCursor(Cursor cursor) {
-        Integer id = cursor.getInt(0);
-        String nombre = cursor.getString(1);
-        Long fechaNac = cursor.getLong(2);
-        Integer peso = cursor.getInt(3);
+        Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_PERSONA.toString()));
+        String nombre = cursor.getString(cursor.getColumnIndex(COLUMNS.NOMBRE.toString()));
+        Long fechaNac = cursor.getLong(cursor.getColumnIndex(COLUMNS.FECHA_NACIMEINTO.toString()));
+        Integer peso = cursor.getInt(cursor.getColumnIndex(COLUMNS.PESO.toString()));
         PersonaDb p = new PersonaDb(id, nombre, peso, fechaNac);
         return p;
     }
 
 
-
-
-
-
     Integer idPersona;
     String nombre;
-
-
     Integer peso;
     Long fechaNacimiento;
 
     public Integer getPeso() {
         return peso;
     }
-
     public void setPeso(Integer peso) {
         this.peso = peso;
     }
-
     public Long getFechaNacimiento() {
         return fechaNacimiento;
     }
-
-
     public void setFechaNacimiento(Long fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+    public String getNombre() {
+        return nombre;
+    }
+    public Integer getIdPersona() {
+        return idPersona;
+    }
+    public void setIdPersona(Integer idPersona) {
+        this.idPersona = idPersona;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-
-    String createTable;
 
     public static String getCreateTable() {
         return "CREATE TABLE " +
@@ -97,21 +123,6 @@ public class PersonaDb implements DataBaseTable {
     }
 
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public Integer getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(Integer idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public PersonaDb(Integer id, String nombre, Integer peso, Long fechaNacimiento) {
         super();
@@ -129,15 +140,7 @@ public class PersonaDb implements DataBaseTable {
     }
 
 
-    public void addToDB(BaseDePatos dbHelper) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMNS.FECHA_NACIMEINTO.toString(), this.getFechaNacimiento());
-        values.put(COLUMNS.ID_PERSONA.toString(), this.getIdPersona());
-        values.put(COLUMNS.NOMBRE.toString(), this.getNombre());
-        values.put(COLUMNS.PESO.toString(), this.getPeso());
 
-        dbHelper.add(TABLA_PERSONA, values);
-    }
 
 
     public int getEdad(){

@@ -24,9 +24,11 @@ import java.util.Date;
 
 public class ActividadNuevaPersona extends ActionBarActivity {
 
-    TextView fechaNacimiento;
+    TextView tvFechaNacimiento;
     EditText etNombrePersona;
     EditText etPeso;
+    Integer personaID;
+    BaseDePatos baseDePatos;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd - MMMM - yyyy");
 
@@ -36,11 +38,43 @@ public class ActividadNuevaPersona extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_persona);
-        fechaNacimiento = (TextView) findViewById(R.id.fechaNacDatePicker);
-        fechaNacimiento.setText(dameFechaComoString(2000, 1, 1));
 
-        etNombrePersona = (EditText)  findViewById(R.id.etNombrePersona);
-        etPeso = (EditText)  findViewById(R.id.etPeso);
+        tvFechaNacimiento = (TextView) findViewById(R.id.fechaNacDatePicker);
+        etNombrePersona = (EditText) findViewById(R.id.etNombrePersona);
+        etPeso = (EditText) findViewById(R.id.etPeso);
+
+        //si queremos un update
+        Bundle bundle = getIntent().getExtras();
+        if (null != bundle){
+            personaID = bundle.getInt("ID_PERSONA");
+            baseDePatos = BaseDePatos.getInstance(getApplicationContext());
+            recuperarPersona(personaID);
+        }
+        else {
+            tvFechaNacimiento.setText(dameFechaComoString(2000, 1, 1));
+        }
+
+
+
+    }
+
+    private void recuperarPersona(int id_persona) {
+        PersonaDb personaDb = PersonaDb.findById(baseDePatos, id_persona);
+        String aux = personaDb.getNombre() ;
+
+        etNombrePersona.setText(aux);
+        int peso = personaDb.getPeso();
+        etPeso.setText(""+peso);
+
+        Long fechaNacimiento = personaDb.getFechaNacimiento();
+        String fechaString = dameFechaComoString(fechaNacimiento);
+        tvFechaNacimiento.setText(fechaString);
+
+    }
+
+    private String dameFechaComoString(Long fechaNacimiento) {
+        Date aux = new Date(fechaNacimiento);
+        return sdf.format(aux);
     }
 
 
@@ -84,12 +118,17 @@ public class ActividadNuevaPersona extends ActionBarActivity {
 
     private void guardarPersona() throws ParseException {
         BaseDePatos baseDePatos = BaseDePatos.getInstance(this.getApplicationContext());
-        String fechaNacimientoText = String.valueOf(fechaNacimiento.getText());
+        String fechaNacimientoText = String.valueOf(tvFechaNacimiento.getText());
         Date date = sdf.parse(fechaNacimientoText);
         Integer peso = new Integer(etPeso.getText().toString());
-        PersonaDb persona = new PersonaDb(etNombrePersona.getText().toString(),peso, date.getTime() );
-        persona.addToDB(baseDePatos);
 
+        if (null == personaID) {
+            PersonaDb persona = new PersonaDb(etNombrePersona.getText().toString(),peso, date.getTime() );
+            persona.addToDB(baseDePatos);
+        }else{
+            PersonaDb persona = new PersonaDb(personaID, etNombrePersona.getText().toString(),peso, date.getTime() );
+            persona.updateToDB(baseDePatos);
+        }
 
     }
 
@@ -151,7 +190,7 @@ public class ActividadNuevaPersona extends ActionBarActivity {
 
             String fechaString = dameFechaComoString(year, monthOfYear, dayOfMonth);
 
-            fechaNacimiento.setText(fechaString);
+            tvFechaNacimiento.setText(fechaString);
 
         }
     };

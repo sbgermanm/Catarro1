@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.sebas.catarro1.ActividadPersona">
 
 
+    <item android:id="@+id/actionBarModificarPersona" android:title="@string/actionBar_modificarPersona"
+        android:orderInCategory="20" app:showAsAction="always" android:icon="@drawable/ic_action_person"/>
+
+
+    <item android:id="@+id/actionBarEliminarPersona" android:title="@string/action_eliminarPersona"
+        android:orderInCategory="10" app:showAsAction="always" android:icon="@drawable/ic_action_eliminar_persona"/>
+
+
     <item android:id="@+id/actionBarNuevoCatarro" android:title="@string/action_nuevoCatarro"
-        android:orderInCategory="10" app:showAsAction="always" android:icon="@mipmap/ic_virus"/>
+        android:orderInCategory="30" app:showAsAction="always" android:icon="@mipmap/ic_virus"/>
 
 
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
