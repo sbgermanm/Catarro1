@@ -1,4 +1,4 @@
-package com.sebas.catarro1;
+package com.sebas.catarro1.persona;
 
 
 import android.app.DatePickerDialog;
@@ -13,8 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
+import com.sebas.catarro1.util.ElegirFechaFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

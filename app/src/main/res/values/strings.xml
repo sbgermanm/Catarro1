@@ -28,4 +28,12 @@
     <string name="message_dialog_eliminar_persona">¿Eliminar persona?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancelar</string>
+    <string name="title_activity_actividad_nuevo_catarro">ActividadNuevoCatarro</string>
+    <string name="nuevo_catarro">Nuevo catarro</string>
+    <string name="lbNombreCatarro">Descripción</string>
+    <string name="etNombreCatarro">descripción</string>
+    <string name="lbFechaCatarro">Fecha:</string>
+    <string name="etFechaCatarro">01/01/2000</string>
+    <string name="labelComentarioCatarro">Comentarios:</string>
+    <string name="multiLineComentarios">comentarios</string>
 </resources>

@@ -17,12 +17,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActividadNuevaPersona"
+            android:name=".persona.ActividadNuevaPersona"
             android:label="@string/title_activity_nueva_persona" >
         </activity>
         <activity
-            android:name=".ActividadPersona"
+            android:name=".persona.ActividadPersona"
             android:label="@string/title_activity_persona" >
+        </activity>
+        <activity
+            android:name=".catarro.ActividadNuevoCatarro"
+            android:label="@string/title_activity_actividad_nuevo_catarro"
+            android:parentActivityName=".persona.ActividadPersona" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sebas.catarro1.persona.ActividadPersona" />
         </activity>
     </application>
 

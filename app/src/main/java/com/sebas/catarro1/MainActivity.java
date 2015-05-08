@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
+import com.sebas.catarro1.persona.ActividadNuevaPersona;
+import com.sebas.catarro1.persona.ActividadPersona;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {

@@ -1,4 +1,4 @@
-package com.sebas.catarro1;
+package com.sebas.catarro1.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,10 +8,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.sebas.catarro1.R;
+
 /**
  * Created by sgerman on 03/05/2015.
  */
-public class EliminarPersonaDialogFragment extends DialogFragment {
+public class ConfirmationDialogFragment extends DialogFragment {
 
 
 
@@ -31,14 +33,14 @@ public class EliminarPersonaDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
-                        mListener.onDialogPositiveClick(EliminarPersonaDialogFragment.this);
+                        mListener.onDialogPositiveClick(ConfirmationDialogFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         // Send the negative button event back to the host activity
-                        mListener.onDialogNegativeClick(EliminarPersonaDialogFragment.this);
+                        mListener.onDialogNegativeClick(ConfirmationDialogFragment.this);
                     }
                 });
         // Create the AlertDialog object and return it

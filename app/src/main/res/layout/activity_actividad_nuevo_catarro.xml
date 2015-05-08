@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.sebas.catarro1.catarro.ActividadNuevoCatarro">
+
+    <TextView
+        android:id="@+id/tvNuevoCatarro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/nuevo_catarro"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/labelNombreCatarro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvNuevoCatarro"
+        android:layout_marginTop="28dp"
+        android:editable="false"
+        android:enabled="false"
+        android:text="@string/lbNombreCatarro" />
+
+    <EditText
+        android:id="@+id/etNombreCatarro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/labelNombreCatarro"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/etNombreCatarro" />
+
+    <EditText
+        android:id="@+id/lbFechaCatarro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:enabled="false"
+        android:text="@string/lbFechaCatarro"
+        android:layout_below="@+id/labelNombreCatarro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="23dp" />
+
+
+    <TextView
+        android:id="@+id/datePickerFechaCatarro"
+        style="?android:attr/spinnerItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:ellipsize="end"
+        android:onClick="mostrarDialogoElegirFecha"
+        android:singleLine="true"
+        android:text="@string/etFechaCatarro"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/lbFechaCatarro"
+        android:layout_alignBottom="@+id/lbFechaCatarro"
+        android:layout_alignLeft="@+id/etNombreCatarro"
+        android:layout_alignStart="@+id/etNombreCatarro" />
+
+    <EditText
+        android:id="@+id/labelComentarioCatarro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lbFechaCatarro"
+        android:layout_marginTop="36dp"
+        android:editable="false"
+        android:enabled="false"
+        android:text="@string/labelComentarioCatarro" />
+
+    <EditText
+        android:id="@+id/multiLineComentarios"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelComentarioCatarro"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="10"
+        android:minLines="6"
+        android:scrollbars="vertical"
+        android:text="@string/multiLineComentarios"
+
+        android:textAlignment="viewStart"
+        android:gravity="start"
+        android:focusable="true" />
+
+
+</RelativeLayout>

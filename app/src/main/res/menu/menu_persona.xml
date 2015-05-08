@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="com.sebas.catarro1.ActividadPersona">
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.sebas.catarro1.persona.ActividadPersona">
 
 
     <item android:id="@+id/actionBarModificarPersona" android:title="@string/actionBar_modificarPersona"

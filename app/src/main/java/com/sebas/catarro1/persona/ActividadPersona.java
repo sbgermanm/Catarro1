@@ -1,21 +1,22 @@
-package com.sebas.catarro1;
+package com.sebas.catarro1.persona;
 
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sebas.catarro1.R;
+import com.sebas.catarro1.catarro.ActividadNuevoCatarro;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
+import com.sebas.catarro1.util.ConfirmationDialogFragment;
 
 
-public class ActividadPersona extends ActionBarActivity implements EliminarPersonaDialogFragment.EliminarPersonaDialogListener {
+public class ActividadPersona extends ActionBarActivity implements ConfirmationDialogFragment.EliminarPersonaDialogListener {
 
     BaseDePatos baseDePatos ;
     TextView etNombre;
@@ -76,14 +77,16 @@ public class ActividadPersona extends ActionBarActivity implements EliminarPerso
         //noinspection SimplifiableIfStatement
         if (id == R.id.actionBarNuevoCatarro) {
             //lanzarPantallaNuevoCatarro
-
-
+            Intent i = new Intent(this, ActividadNuevoCatarro.class);
+            i.putExtra("ID_PERSONA", personaID);
+            startActivity(i);
             return true;
+
         }
 
         if (id == R.id.actionBarEliminarPersona) {
             //lanzarPantallaNuevoCatarro
-            DialogFragment df = new EliminarPersonaDialogFragment();
+            DialogFragment df = new ConfirmationDialogFragment();
             Bundle bundle = new Bundle();
             bundle.putString("TITULO", getString(R.string.message_dialog_eliminar_persona));
             df.setArguments(bundle);
