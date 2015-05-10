@@ -12,8 +12,11 @@ import android.widget.TextView;
 import com.sebas.catarro1.R;
 import com.sebas.catarro1.catarro.ActividadNuevoCatarro;
 import com.sebas.catarro1.db.BaseDePatos;
+import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
 import com.sebas.catarro1.util.ConfirmationDialogFragment;
+
+import java.util.List;
 
 
 public class ActividadPersona extends ActionBarActivity implements ConfirmationDialogFragment.EliminarPersonaDialogListener {
@@ -36,7 +39,7 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
 
         baseDePatos = BaseDePatos.getInstance(getApplicationContext());
 
-        //recuperarPersona(id_persona);
+
 
     }
 
@@ -44,6 +47,12 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
     protected void onResume() {
         super.onResume();
         recuperarPersona(personaID);
+        mostrarCatarros();
+    }
+
+    private void mostrarCatarros() {
+        List<CatarroDb> catarros = CatarroDb.selectAll(baseDePatos);
+
     }
 
     private void recuperarPersona(int id_persona) {
