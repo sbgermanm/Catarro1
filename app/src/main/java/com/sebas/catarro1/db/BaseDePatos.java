@@ -83,6 +83,7 @@ public class BaseDePatos extends SQLiteOpenHelper {
 
 
 
+
     public void add(String tabla, ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(tabla, null, values);
