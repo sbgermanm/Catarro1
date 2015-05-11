@@ -35,8 +35,7 @@ public class AdaptadorListasBasico<T> extends ArrayAdapter<T> {
 
      */
 
-    public AdaptadorListasBasico(Context context, int textViewResourceId,
-                              List<T> objects) {
+    public AdaptadorListasBasico(Context context, int textViewResourceId, List<T> objects) {
         super(context,textViewResourceId, objects);
     }
 
