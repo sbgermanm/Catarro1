@@ -12,7 +12,6 @@ import java.util.Calendar;
  * Created by sgerman on 03/04/2015.
  *
  *
- *
  */
 public  class ElegirFechaFragment extends DialogFragment {
 

@@ -16,6 +16,7 @@ import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.util.ElegirFechaFragment;
+import com.sebas.catarro1.util.Miscelanea;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,6 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
     EditText etNombreCatarro;
     TextView tvFechaCatarro;
     EditText etComentariosCatarro;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd - MMMM - yyyy");
     private Integer catarroID;
     BaseDePatos baseDePatos;
 
@@ -49,7 +49,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         }
         else {
             Bundle bundleFechaInicial = dameFechaInicial();
-            tvFechaCatarro.setText(dameFechaComoString(bundleFechaInicial.getInt("anno"), bundleFechaInicial.getInt("mes"), bundleFechaInicial.getInt("dia")));
+            tvFechaCatarro.setText(Miscelanea.dameFechaComoString(bundleFechaInicial.getInt("anno"), bundleFechaInicial.getInt("mes"), bundleFechaInicial.getInt("dia")));
         }
     }
 
@@ -60,7 +60,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         etNombreCatarro.setText(catarroDb.getNombre());
 
         Long fecha = catarroDb.getFecha();
-        String fechaString = dameFechaComoString(fecha);
+        String fechaString = Miscelanea.dameFechaComoString(fecha);
         tvFechaCatarro.setText(fechaString);
 
         etComentariosCatarro.setText(catarroDb.getComentarios());
@@ -107,7 +107,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
     private void guardarCatarro() throws ParseException {
         BaseDePatos baseDePatos = BaseDePatos.getInstance(this.getApplicationContext());
         String fechaCatarro = String.valueOf(tvFechaCatarro.getText());
-        Date date = sdf.parse(fechaCatarro);
+        Date date = Miscelanea.dameStringComoFecha(fechaCatarro);
 
         if (null == catarroID) {
             CatarroDb persona = new CatarroDb(etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString() );
@@ -160,29 +160,12 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
 
-            String fechaString = dameFechaComoString(year, monthOfYear, dayOfMonth);
+            String fechaString = Miscelanea.dameFechaComoString(year, monthOfYear, dayOfMonth);
 
             tvFechaCatarro.setText(fechaString);
 
         }
     };
 
-    public String dameFechaComoString(int year, int monthOfYear, int dayOfMonth) {
-        String result;
-
-        Calendar calender = Calendar.getInstance();
-        calender.set(Calendar.YEAR, year);
-        calender.set(Calendar.MONTH, monthOfYear);
-        calender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        Date fecha = calender.getTime();
-        result = sdf.format(fecha);
-
-
-        return result;
-    }
-    private String dameFechaComoString(Long fechaNacimiento) {
-        Date aux = new Date(fechaNacimiento);
-        return sdf.format(aux);
-    }
 
 }

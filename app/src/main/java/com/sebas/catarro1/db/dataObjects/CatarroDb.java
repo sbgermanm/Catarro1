@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.sebas.catarro1.db.BaseDePatos;
+import com.sebas.catarro1.util.Miscelanea;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -145,9 +146,10 @@ public class CatarroDb implements DataBaseTable {
     }
 
 
-
-
-
-
-
+    @Override
+    public String toString() {
+        String aux = Miscelanea.dameFechaComoString(fecha);
+        aux += ": " + nombre;
+        return aux;
+    }
 }

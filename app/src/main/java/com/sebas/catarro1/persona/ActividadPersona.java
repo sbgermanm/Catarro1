@@ -4,9 +4,13 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sebas.catarro1.R;
@@ -14,30 +18,35 @@ import com.sebas.catarro1.catarro.ActividadNuevoCatarro;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
+import com.sebas.catarro1.util.AdaptadorListasBasico;
 import com.sebas.catarro1.util.ConfirmationDialogFragment;
 
 import java.util.List;
 
 
-public class ActividadPersona extends ActionBarActivity implements ConfirmationDialogFragment.EliminarPersonaDialogListener {
+public class ActividadPersona extends ActionBarActivity implements ConfirmationDialogFragment.EliminarPersonaDialogListener, AdapterView.OnItemClickListener {
 
     BaseDePatos baseDePatos ;
     TextView etNombre;
     EditText etPeso;
     Integer personaID;
+    ListView lvListaCatarros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persona);
 
+        baseDePatos = BaseDePatos.getInstance(getApplicationContext());
         int id_persona = getIntent().getExtras().getInt("ID_PERSONA");
         personaID = new Integer(id_persona);
 
         etNombre = (TextView) findViewById(R.id.etNombrePersonaEdad);
         etPeso = (EditText) findViewById(R.id.etPesoPersona);
+        lvListaCatarros = (ListView) findViewById(R.id.listViewCatarros);
 
-        baseDePatos = BaseDePatos.getInstance(getApplicationContext());
+        lvListaCatarros.setOnItemClickListener(this);
+
 
 
 
@@ -52,7 +61,8 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
 
     private void mostrarCatarros() {
         List<CatarroDb> catarros = CatarroDb.selectAll(baseDePatos);
-
+        AdaptadorListasBasico<CatarroDb> adaptadorListasBasico = new AdaptadorListasBasico<CatarroDb>(this, android.R.layout.simple_list_item_1 , catarros);
+        lvListaCatarros.setAdapter(adaptadorListasBasico);
     }
 
     private void recuperarPersona(int id_persona) {
@@ -67,6 +77,8 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
 
 
     }
+
+
 
 
     @Override
@@ -115,6 +127,7 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
     }
 
 
+    //    ----------------------------- ConfirmationDialogFragment.EliminarPersonaDialogListener Callbacks Controler methods ----------------------------------
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         PersonaDb.delete(baseDePatos, personaID);
@@ -123,6 +136,17 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+
+
+
+
+//    ----------------------------- Controler methods ----------------------------------
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final CatarroDb item = (CatarroDb) parent.getItemAtPosition(position);
+        Log.d("sebas", "" + item.getIdCatarro() + ": " + item.getNombre());
 
     }
 }

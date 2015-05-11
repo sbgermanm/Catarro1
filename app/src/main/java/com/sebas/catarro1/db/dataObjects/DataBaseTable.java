@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface DataBaseTable {
 	public void addToDB(BaseDePatos dbHelper);
+	public void updateToDB(BaseDePatos baseDePatos);
 
 
-}
+
+	}
