@@ -1,5 +1,7 @@
 package com.sebas.catarro1.util;
 
+import android.os.Bundle;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,4 +37,12 @@ public class Miscelanea {
         return result;
     }
 
+    public static Integer BundleGetInteger(Bundle bundle, String key) {
+        Integer result = null;
+        Object o = bundle.get(key);
+        if (null != o){
+            result= (Integer) o;
+        }
+        return result;
+    }
 }

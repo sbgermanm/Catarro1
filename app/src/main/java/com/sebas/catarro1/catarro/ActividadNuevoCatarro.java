@@ -17,6 +17,7 @@ import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.util.ElegirFechaFragment;
 import com.sebas.catarro1.util.Miscelanea;
+import com.sebas.catarro1.util.SebasUnCheckedException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
     EditText etComentariosCatarro;
     private Integer catarroID;
     BaseDePatos baseDePatos;
+    private Integer personaID;
 
 
     @Override
@@ -42,10 +44,12 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
 
         //si queremos un update
         Bundle bundle = getIntent().getExtras();
-        if (null != bundle){
-            catarroID = bundle.getInt("ID_PERSONA");
-            baseDePatos = BaseDePatos.getInstance(getApplicationContext());
-            recuperarCatarro(catarroID);
+        catarroID = Miscelanea.BundleGetInteger(bundle, "ID_CATARRO");
+        personaID = Miscelanea.BundleGetInteger(bundle, "ID_PERSONA");
+
+        if (null != catarroID){
+                baseDePatos = BaseDePatos.getInstance(getApplicationContext());
+                recuperarCatarro(catarroID);
         }
         else {
             Bundle bundleFechaInicial = dameFechaInicial();
@@ -84,7 +88,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
                 if (!bDatosOk())
                     Toast.makeText(this, "Introduzca los datos requeridos", Toast.LENGTH_SHORT).show();
                 else {
-                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
                     try {
                         guardarCatarro();
                     } catch (ParseException e) {
@@ -110,11 +114,13 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         Date date = Miscelanea.dameStringComoFecha(fechaCatarro);
 
         if (null == catarroID) {
-            CatarroDb persona = new CatarroDb(etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString() );
-            persona.addToDB(baseDePatos);
+            CatarroDb catarro = new CatarroDb(etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString(), personaID );
+            catarro.addToDB(baseDePatos);
         }else{
-            CatarroDb persona = new CatarroDb(catarroID, etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString() );
-            persona.updateToDB(baseDePatos);
+            CatarroDb catarro = new CatarroDb(catarroID, etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString(), personaID );
+            int rowsUpdated = catarro.updateToDB(baseDePatos);
+            if (0 == rowsUpdated) throw new SebasUnCheckedException();
+
         }
 
     }

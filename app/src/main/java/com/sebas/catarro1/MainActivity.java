@@ -95,7 +95,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if (id == R.id.nuevaPersona)
         {
-            Toast.makeText(this, "nueva persoana", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "nueva persoana", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, ActividadNuevaPersona.class);
             startActivity(i);
 

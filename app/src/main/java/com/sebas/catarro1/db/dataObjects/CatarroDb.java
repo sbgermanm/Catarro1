@@ -15,6 +15,7 @@ import java.util.List;
 public class CatarroDb implements DataBaseTable {
 
 
+    private final Integer idPersona;
 
     // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
     public static List<CatarroDb> selectAll(BaseDePatos baseDePatos) {
@@ -56,9 +57,9 @@ public class CatarroDb implements DataBaseTable {
     }
 
 
-    public void updateToDB(BaseDePatos baseDePatos) {
+    public int updateToDB(BaseDePatos baseDePatos) {
         ContentValues values = dameContentValues();
-        baseDePatos.update(TABLE_NAME, values, COLUMNS.ID.toString(), this.idCatarro);
+        return baseDePatos.update(TABLE_NAME, values, COLUMNS.ID.toString(), this.idCatarro);
     }
 
 
@@ -69,14 +70,16 @@ public class CatarroDb implements DataBaseTable {
     public static final String TABLE_NAME = "catarro";
 
 
-    private static enum COLUMNS {ID, NOMBRE, FECHA, COMENTARIOS};
+    private static enum COLUMNS {ID, NOMBRE, FECHA, COMENTARIOS, ID_PERSONA};
 
     private static CatarroDb getCatarroFromCursor(Cursor cursor) {
         Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID.toString()));
         String nombre = cursor.getString(cursor.getColumnIndex(COLUMNS.NOMBRE.toString()));
         Long fecha = cursor.getLong(cursor.getColumnIndex(COLUMNS.FECHA.toString()));
         String comentarios = cursor.getString(cursor.getColumnIndex(COLUMNS.COMENTARIOS.toString()));
-        CatarroDb p = new CatarroDb(id, nombre, fecha, comentarios);
+        Integer idPersona = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_PERSONA.toString()));
+
+        CatarroDb p = new CatarroDb(id, nombre, fecha, comentarios, idPersona);
         return p;
     }
 
@@ -124,23 +127,29 @@ public class CatarroDb implements DataBaseTable {
                 + COLUMNS.ID + " INTEGER PRIMARY KEY, "
                 + COLUMNS.NOMBRE + " TEXT, "
                 + COLUMNS.FECHA + " INTEGER, "
-                + COLUMNS.COMENTARIOS + " TEXT"
+                + COLUMNS.COMENTARIOS + " TEXT,"
+                + COLUMNS.ID_PERSONA + " INTEGER"
                 + ")";
+        //don't use FK intentionally. It must be assured by app logic.
+//        to use FK we need to add this as the las line
+//        + " FOREIGN KEY ("+COLUMNS.ID_PERSONA+") REFERENCES "+PersonaDb.TABLA_PERSONA+" ("+PersonaDb.getPKColumnName()+"));";
     }
 
 
 
-    public CatarroDb(Integer id, String nombre, Long fecha, String comentarios) {
+    public CatarroDb(Integer id, String nombre, Long fecha, String comentarios, Integer idPersona) {
         super();
         this.idCatarro = id;
         this.nombre = nombre;
         this.comentarios = comentarios;
         this.fecha = fecha;
+        this.idPersona = idPersona;
     }
 
-    public CatarroDb(String nombre, Long fecha, String comentarios) {
+    public CatarroDb(String nombre, Long fecha, String comentarios, Integer idPersona) {
         super();
         this.nombre = nombre;
+        this.idPersona = idPersona;
         this.comentarios = comentarios;
         this.fecha = fecha;
     }

@@ -17,6 +17,8 @@ import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
 import com.sebas.catarro1.util.ElegirFechaFragment;
+import com.sebas.catarro1.util.Miscelanea;
+import com.sebas.catarro1.util.SebasUnCheckedException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +50,7 @@ public class ActividadNuevaPersona extends ActionBarActivity {
         //si queremos un update
         Bundle bundle = getIntent().getExtras();
         if (null != bundle){
-            personaID = bundle.getInt("ID_PERSONA");
+            personaID = Miscelanea.BundleGetInteger(bundle, "ID_PERSONA");
             baseDePatos = BaseDePatos.getInstance(getApplicationContext());
             recuperarPersona(personaID);
         }
@@ -98,7 +100,7 @@ public class ActividadNuevaPersona extends ActionBarActivity {
                 if (!bDatosOk())
                     Toast.makeText(this, "Introduzca los datos requeridos", Toast.LENGTH_SHORT).show();
                 else {
-                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
                     try {
                         guardarPersona();
                     } catch (ParseException e) {
@@ -129,7 +131,8 @@ public class ActividadNuevaPersona extends ActionBarActivity {
             persona.addToDB(baseDePatos);
         }else{
             PersonaDb persona = new PersonaDb(personaID, etNombrePersona.getText().toString(),peso, date.getTime() );
-            persona.updateToDB(baseDePatos);
+            int rowsUpdated = persona.updateToDB(baseDePatos);
+            if (0 == rowsUpdated) throw new SebasUnCheckedException();
         }
 
     }

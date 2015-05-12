@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
 
 
@@ -60,7 +61,7 @@ public class BaseDePatos extends SQLiteOpenHelper {
     }
 
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "anotatomasDB.db";
 
 
@@ -69,14 +70,18 @@ public class BaseDePatos extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREAR_TABLA_PERSONA = PersonaDb.getCreateTable();
-        Log.d("sebas", CREAR_TABLA_PERSONA);
+        //Log.d("sebas", CREAR_TABLA_PERSONA);
         db.execSQL(CREAR_TABLA_PERSONA);
+
+        db.execSQL(CatarroDb.getCreateTable());
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + PersonaDb.TABLA_PERSONA);
-		onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS " + CatarroDb.TABLE_NAME);
+        onCreate(db);
     }
 
 
@@ -113,9 +118,9 @@ public class BaseDePatos extends SQLiteOpenHelper {
 
     }
 
-    public void update(String tabla, ContentValues values, String primaryKey, Integer id) {
+    public int update(String tabla, ContentValues values, String primaryKey, Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(tabla, values, primaryKey + "=" + id, null);
+        return db.update(tabla, values, primaryKey + "=" + id, null);
 
     }
 }

@@ -56,9 +56,9 @@ public class PersonaDb implements DataBaseTable {
     }
 
 
-    public void updateToDB(BaseDePatos baseDePatos) {
+    public int updateToDB(BaseDePatos baseDePatos) {
         ContentValues values = dameContentValues();
-        baseDePatos.update(TABLA_PERSONA, values, COLUMNS.ID_PERSONA.toString(), this.idPersona);
+        return baseDePatos.update(TABLA_PERSONA, values, COLUMNS.ID_PERSONA.toString(), this.idPersona);
     }
 
 
@@ -67,6 +67,10 @@ public class PersonaDb implements DataBaseTable {
 
 
     public static final String TABLA_PERSONA = "persona";
+
+    public static String getPKColumnName() {
+        return String.valueOf(COLUMNS.ID_PERSONA);
+    }
 
 
     private static enum COLUMNS {ID_PERSONA, NOMBRE, FECHA_NACIMEINTO, PESO};
