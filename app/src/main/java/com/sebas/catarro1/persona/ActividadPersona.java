@@ -19,6 +19,7 @@ import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
 import com.sebas.catarro1.util.AdaptadorListasBasico;
+import com.sebas.catarro1.util.AdaptadorListasDoblesBasico;
 import com.sebas.catarro1.util.ConfirmationDialogFragment;
 
 import java.util.List;
@@ -62,7 +63,11 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
     private void mostrarCatarros() {
         List<CatarroDb> catarros = CatarroDb.selectAll(baseDePatos);
         AdaptadorListasBasico<CatarroDb> adaptadorListasBasico = new AdaptadorListasBasico<CatarroDb>(this, android.R.layout.simple_list_item_1 , catarros);
-        lvListaCatarros.setAdapter(adaptadorListasBasico);
+
+//        AdaptadorListasDoblesBasico<CatarroDb> a2 = new AdaptadorListasDoblesBasico<CatarroDb>(this, android.R.layout.simple_list_item_2 , android.R.id.text1, catarros);
+        AdaptadorListasDoblesBasico<CatarroDb> a2 = new AdaptadorListasDoblesBasico<CatarroDb>(this, R.layout.listview_catarro_2lines_layout , R.id.list_view_text1, catarros);
+//        lvListaCatarros.setAdapter(adaptadorListasBasico);
+        lvListaCatarros.setAdapter(a2);
     }
 
     private void recuperarPersona(int id_persona) {

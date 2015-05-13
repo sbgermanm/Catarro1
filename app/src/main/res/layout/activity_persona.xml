@@ -63,7 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/listViewCatarros"
-            android:choiceMode="singleChoice" />
+            android:choiceMode="singleChoice"
+            android:text="@string/listViewCatarrosText"
+            />
     </LinearLayout>
 
 </RelativeLayout>

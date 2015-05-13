@@ -1,16 +1,21 @@
 package com.sebas.catarro1.util;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import com.sebas.catarro1.R;
 
 import java.util.List;
 
 /**
  * Created by sgerman on 10/05/2015.
  */
-public class AdaptadorListasBasico<T> extends ArrayAdapter<T> {
+public class AdaptadorListasDoblesBasico<T extends ItemParaListaDoble> extends ArrayAdapter<T> {
 
     /*
 
@@ -30,24 +35,42 @@ public class AdaptadorListasBasico<T> extends ArrayAdapter<T> {
 
     http://www.vogella.com/tutorials/AndroidListView/article.html
 
-    En el onResume() hay que meter esto
-    AdaptadorListasBasico<CatarroDb> adaptadorListasBasico = new AdaptadorListasBasico<CatarroDb>(this, android.R.layout.simple_list_item_1 , catarros);
+    En el OnResume()
 
-     lvListaCatarros.setAdapter(adaptadorListasBasico);
-
+        AdaptadorListasDoblesBasico<CatarroDb> a2 = new AdaptadorListasDoblesBasico<CatarroDb>(this, android.R.layout.simple_list_item_2 , android.R.id.text1, catarros);
+        lvListaCatarros.setAdapter(a2);
 
      */
 
-    public AdaptadorListasBasico(Context context, int textViewResourceId, List<T> objects) {
+    public AdaptadorListasDoblesBasico(Context context, int textViewResourceId, List<T> objects) {
         super(context,textViewResourceId, objects);
     }
 
     ////Este constructor es para pasar directamente el id del ListView y el del textView que se muestra. Solo eso, una sola linea.
-    public AdaptadorListasBasico(Context context, int resource, int textViewResourceId, List<T> objects) {
+    public AdaptadorListasDoblesBasico(Context context, int resource, int textViewResourceId, List<T> objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
 
+
+
+        View view = super.getView(position, convertView, parent);
+//        TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+//        TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+
+
+        TextView text1 = (TextView) view.findViewById(R.id.list_view_text1);
+        TextView text2 = (TextView) view.findViewById(R.id.list_view_text2);
+        T item = getItem(position);
+        text1.setText(item.getText1());
+        text2.setText(item.getText2());
+        return view;
+
+
+    }
 
 
 

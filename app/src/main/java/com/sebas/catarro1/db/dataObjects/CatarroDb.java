@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.sebas.catarro1.db.BaseDePatos;
+import com.sebas.catarro1.util.ItemParaListaDoble;
 import com.sebas.catarro1.util.Miscelanea;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class CatarroDb implements DataBaseTable {
+public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
 
 
     private final Integer idPersona;
@@ -68,6 +69,7 @@ public class CatarroDb implements DataBaseTable {
 
 
     public static final String TABLE_NAME = "catarro";
+
 
 
     private static enum COLUMNS {ID, NOMBRE, FECHA, COMENTARIOS, ID_PERSONA};
@@ -161,4 +163,18 @@ public class CatarroDb implements DataBaseTable {
         aux += ": " + nombre;
         return aux;
     }
+
+
+    @Override
+    public String getText1() {
+        return Miscelanea.dameFechaComoString(fecha);
+    }
+
+    @Override
+    public String getText2() {
+        return nombre;
+    }
+
+
+
 }
