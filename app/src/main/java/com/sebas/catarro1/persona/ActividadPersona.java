@@ -61,7 +61,7 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
     }
 
     private void mostrarCatarros() {
-        List<CatarroDb> catarros = CatarroDb.selectAll(baseDePatos);
+        List<CatarroDb> catarros = CatarroDb.selectAllOrderedByDateDesc(baseDePatos);
         AdaptadorListasBasico<CatarroDb> adaptadorListasBasico = new AdaptadorListasBasico<CatarroDb>(this, android.R.layout.simple_list_item_1 , catarros);
 
 //        AdaptadorListasDoblesBasico<CatarroDb> a2 = new AdaptadorListasDoblesBasico<CatarroDb>(this, android.R.layout.simple_list_item_2 , android.R.id.text1, catarros);

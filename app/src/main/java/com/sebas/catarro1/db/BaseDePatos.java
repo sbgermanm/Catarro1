@@ -103,6 +103,14 @@ public class BaseDePatos extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor selectAll(String tableName, String orderBy) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(tableName, null, null, null, null, null, orderBy, null);
+        return cursor;
+    }
+
 
     public Cursor findById(String tableName, String idColumnName, Integer id) {
 

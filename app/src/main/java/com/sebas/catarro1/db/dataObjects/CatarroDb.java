@@ -21,6 +21,10 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
     // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
     public static List<CatarroDb> selectAll(BaseDePatos baseDePatos) {
         Cursor cursor = baseDePatos.selectAll(TABLE_NAME);
+        return catarrosFromCursor(cursor);
+  }
+
+    private static List<CatarroDb> catarrosFromCursor(Cursor cursor) {
         int num = cursor.getCount();
         ArrayList<CatarroDb> catarros = new ArrayList<>(num);
         while (cursor.moveToNext()) {
@@ -30,6 +34,14 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
         cursor.close();
         return catarros;
     }
+
+    public static List<CatarroDb> selectAllOrderedByDateDesc(BaseDePatos baseDePatos) {
+        Cursor cursor = baseDePatos.selectAll(TABLE_NAME, COLUMNS.FECHA + " DESC");
+        return catarrosFromCursor(cursor);
+    }
+
+
+
 
     public static CatarroDb findById(BaseDePatos baseDePatos, Integer idCatarro) {
         Cursor cursor = baseDePatos.findById(TABLE_NAME, COLUMNS.ID.toString(), idCatarro);

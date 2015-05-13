@@ -37,4 +37,5 @@
     <string name="labelComentarioCatarro">Comentarios:</string>
     <string name="multiLineComentarios">comentarios</string>
     <string name="listViewCatarrosText">Catarros</string>
+    <string name="lbCatarrosAnteriores">Catarros anteriores</string>
 </resources>
