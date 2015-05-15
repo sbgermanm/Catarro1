@@ -38,4 +38,7 @@
     <string name="multiLineComentarios">comentarios</string>
     <string name="listViewCatarrosText">Catarros</string>
     <string name="lbCatarrosAnteriores">Catarros anteriores</string>
+    <string name="title_activity_actividad_catarro">ActividadCatarro</string>
+    <string name="lbSintomas">Sintomas</string>
+    <string name="lbTomas">Tomas</string>
 </resources>

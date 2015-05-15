@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         linearLayout.addView(row);
 
         for (PersonaDb personaDb : PersonaDb.selectAll(baseDePatos)) {
-            //Toast.makeText(this, personaDb.getNombre(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, personaDb.getNombreSintoma(), Toast.LENGTH_SHORT).show();
             Log.d("sebas", personaDb.getNombre());
 
             if (count%2 == 0){

@@ -32,6 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sebas.catarro1.persona.ActividadPersona" />
         </activity>
+        <activity
+            android:name=".catarro.ActividadCatarro"
+            android:label="@string/title_activity_actividad_catarro" >
+        </activity>
     </application>
 
 </manifest>

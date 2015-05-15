@@ -146,7 +146,7 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
                 + ")";
         //don't use FK intentionally. It must be assured by app logic.
 //        to use FK we need to add this as the las line
-//        + " FOREIGN KEY ("+COLUMNS.ID_PERSONA+") REFERENCES "+PersonaDb.TABLA_PERSONA+" ("+PersonaDb.getPKColumnName()+"));";
+//        + " FOREIGN KEY ("+COLUMNS.ID_PERSONA+") REFERENCES "+PersonaDb.TABLE_NAME+" ("+PersonaDb.getPKColumnName()+"));";
     }
 
 

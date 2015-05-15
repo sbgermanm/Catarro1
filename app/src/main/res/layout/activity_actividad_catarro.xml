@@ -16,43 +16,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:id="@+id/etNombrePersonaEdad"
-            android:layout_alignBottom="@+id/etPesoPersona"
+            android:id="@+id/etFechaYNombreCatarro"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="2"
-            android:id="@+id/etPesoPersona"
-            android:text="@string/etPesoPersona"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="29dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/etNombrePersonaEdad"
-            android:layout_toEndOf="@+id/etNombrePersonaEdad"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:ellipsize="end"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvKg"
-            android:layout_alignBottom="@+id/linearLayout1"
-            android:layout_toRightOf="@+id/linearLayout1"
-            android:layout_toEndOf="@+id/linearLayout1"
-            android:text="@string/labelKg" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout2"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
@@ -61,17 +36,42 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lbCatarrosAnteriores"
-            android:id="@+id/textView3"
+            android:text="@string/lbSintomas"
+            android:id="@+id/lbSintomas"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/listViewCatarros"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewSintomas"
             android:choiceMode="singleChoice"
-            android:text="@string/listViewCatarrosText"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbTomas"
+            android:id="@+id/lbTomas"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewTomas"
+            android:choiceMode="singleChoice"
             />
     </LinearLayout>
 

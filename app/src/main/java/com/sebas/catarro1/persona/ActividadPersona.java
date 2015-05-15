@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sebas.catarro1.R;
+import com.sebas.catarro1.catarro.ActividadCatarro;
 import com.sebas.catarro1.catarro.ActividadNuevoCatarro;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
@@ -62,7 +63,7 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
 
     private void mostrarCatarros() {
         List<CatarroDb> catarros = CatarroDb.selectAllOrderedByDateDesc(baseDePatos);
-        AdaptadorListasBasico<CatarroDb> adaptadorListasBasico = new AdaptadorListasBasico<CatarroDb>(this, android.R.layout.simple_list_item_1 , catarros);
+//        AdaptadorListasBasico<CatarroDb> adaptadorListasBasico = new AdaptadorListasBasico<CatarroDb>(this, android.R.layout.simple_list_item_1 , catarros);
 
 //        AdaptadorListasDoblesBasico<CatarroDb> a2 = new AdaptadorListasDoblesBasico<CatarroDb>(this, android.R.layout.simple_list_item_2 , android.R.id.text1, catarros);
         AdaptadorListasDoblesBasico<CatarroDb> a2 = new AdaptadorListasDoblesBasico<CatarroDb>(this, R.layout.listview_catarro_2lines_layout , R.id.list_view_text1, catarros);
@@ -82,7 +83,6 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
 
 
     }
-
 
 
 
@@ -152,6 +152,9 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final CatarroDb item = (CatarroDb) parent.getItemAtPosition(position);
         Log.d("sebas", "" + item.getIdCatarro() + ": " + item.getNombre());
-
+        //lanzarPantallaCatarro
+        Intent i = new Intent(this, ActividadCatarro.class);
+        i.putExtra("ID_CATARRO", item.getIdCatarro());
+        startActivity(i);
     }
 }
