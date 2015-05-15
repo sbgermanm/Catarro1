@@ -119,55 +119,40 @@ public class PrescripcionDB implements DataBaseTable {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
     public static List<PrescripcionDB> selectAll(BaseDePatos baseDePatos) {
         Cursor cursor = baseDePatos.selectAll(TABLE_NAME);
-        return sintomasFromCursor(cursor);
+        return prescripcionesFromCursor(cursor);
     }
 
-    private static List<PrescripcionDB> sintomasFromCursor(Cursor cursor) {
+    private static List<PrescripcionDB> prescripcionesFromCursor(Cursor cursor) {
         int num = cursor.getCount();
-        ArrayList<PrescripcionDB> sintomas = new ArrayList<>(num);
+        ArrayList<PrescripcionDB> prescripciones = new ArrayList<>(num);
         while (cursor.moveToNext()) {
-            PrescripcionDB p = getSintomaFromCursor(cursor);
-            sintomas.add(p);
+            PrescripcionDB p = getPrescripcionFromCursor(cursor);
+            prescripciones.add(p);
         }
         cursor.close();
-        return sintomas;
+        return prescripciones;
     }
 
     public static List<PrescripcionDB> selectAllOrderedByDateDesc(BaseDePatos baseDePatos) {
         Cursor cursor = baseDePatos.selectAll(TABLE_NAME, COLUMNS.FECHA + " DESC");
-        return sintomasFromCursor(cursor);
+        return prescripcionesFromCursor(cursor);
     }
 
 
 
-
     public static PrescripcionDB findById(BaseDePatos baseDePatos, Integer id) {
-        Cursor cursor = baseDePatos.findById(TABLE_NAME, COLUMNS.ID_SINTOMA.toString(), id);
+        Cursor cursor = baseDePatos.findById(TABLE_NAME, COLUMNS.ID_PRESCRIPCION.toString(), id);
         cursor.moveToFirst();
-        PrescripcionDB p = getSintomaFromCursor(cursor);
+        PrescripcionDB p = getPrescripcionFromCursor(cursor);
         cursor.close();
         return p;
     }
 
     public static void delete(BaseDePatos baseDePatos, Integer id) {
-        baseDePatos.delete(TABLE_NAME, COLUMNS.ID_SINTOMA.toString(), id);
+        baseDePatos.delete(TABLE_NAME, COLUMNS.ID_PRESCRIPCION.toString(), id);
     }
 
 
@@ -176,58 +161,71 @@ public class PrescripcionDB implements DataBaseTable {
         dbHelper.add(TABLE_NAME, values);
     }
 
+
+
+
+
     private ContentValues dameContentValues() {
         ContentValues values = new ContentValues();
-        values.put(COLUMNS.NOMBRE.toString(), this.getNombreSintoma());
-        values.put(COLUMNS.VALOR.toString(), this.getValorSintoma());
-        values.put(COLUMNS.UNIDAD_VALOR.toString(), this.getUnidadesValorSintoma());
-        values.put(COLUMNS.COMENTARIO.toString(), this.getComentarioSintoma());
-        values.put(COLUMNS.FECHA.toString(), this.getFechaSintoma());
+        values.put(COLUMNS.NOMBRE.toString(), this.getNombreMedicamento());
+        values.put(COLUMNS.POSOLOGIA.toString(), this.getValorPosologia());
+        values.put(COLUMNS.CADENCIA.toString(), this.getCadenciaEnHoras());
+        values.put(COLUMNS.DURACION.toString(), this.getDuracionEnDias());
+        values.put(COLUMNS.NUMTOMAS.toString(), this.getNumeroTomas());
+        values.put(COLUMNS.COMENTARIO.toString(), this.getComentarioPrescripcion());
+        values.put(COLUMNS.FECHA.toString(), this.getFechaInicio());
         return values;
     }
 
 
     public int updateToDB(BaseDePatos baseDePatos) {
         ContentValues values = dameContentValues();
-        return baseDePatos.update(TABLE_NAME, values, COLUMNS.ID_SINTOMA.toString(), this.idSintoma);
+        return baseDePatos.update(TABLE_NAME, values, COLUMNS.ID_PRESCRIPCION.toString(), this.idPrescripcion);
     }
 
 
 
 
+               /*
+     private Integer idPrescripcion;
+
+
+    private String nombreMedicamento;
+    private Double valorPosologia;
+    private Integer cadenciaEnHoras;
+    private Integer duracionEnDias;
+    private Integer numeroTomas;
+    private String comentarioPrescripcion;
+    private Long fechaInicio;
+     */
 
 
 
-
-    private static PrescripcionDB getSintomaFromCursor(Cursor cursor) {
-        Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_SINTOMA.toString()));
+    private static PrescripcionDB getPrescripcionFromCursor(Cursor cursor) {
+        Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_PRESCRIPCION.toString()));
         String nombre = cursor.getString(cursor.getColumnIndex(COLUMNS.NOMBRE.toString()));
-        Long fecha = cursor.getLong(cursor.getColumnIndex(COLUMNS.FECHA.toString()));
-        Double valor = cursor.getDouble(cursor.getColumnIndex(COLUMNS.VALOR.toString()));
-        String unidadValor = cursor.getString(cursor.getColumnIndex((COLUMNS.UNIDAD_VALOR.toString())));
+        Double valor = cursor.getDouble(cursor.getColumnIndex(COLUMNS.POSOLOGIA.toString()));
+        Integer cadencia = cursor.getInt(cursor.getColumnIndex(COLUMNS.CADENCIA.toString()));
+        Integer duracion = cursor.getInt(cursor.getColumnIndex(COLUMNS.DURACION.toString()));
+        Integer numtomas = cursor.getInt(cursor.getColumnIndex(COLUMNS.NUMTOMAS.toString()));
         String comentario = cursor.getString(cursor.getColumnIndex((COLUMNS.COMENTARIO.toString())));
+        Long fecha = cursor.getLong(cursor.getColumnIndex(COLUMNS.FECHA.toString()));
 
-
-        PrescripcionDB p = new PrescripcionDB(id, nombre, valor, unidadValor, comentario, fecha);
+        PrescripcionDB p = new PrescripcionDB(id, nombre, valor, cadencia, duracion, numtomas, comentario, fecha);
 
         return p;
     }
 
 
-
-
-
-
-
-
-
     public static String getCreateTable() {
         return "CREATE TABLE " +
                 TABLE_NAME + "("
-                + COLUMNS.ID_SINTOMA + " INTEGER PRIMARY KEY, "
+                + COLUMNS.ID_PRESCRIPCION + " INTEGER PRIMARY KEY, "
                 + COLUMNS.NOMBRE + " TEXT, "
-                + COLUMNS.VALOR +  " REAL, "
-                + COLUMNS.UNIDAD_VALOR + " TEXT, "
+                + COLUMNS.POSOLOGIA +  " REAL, "
+                + COLUMNS.CADENCIA + " INTEGER"
+                + COLUMNS.DURACION + " INTEGER"
+                + COLUMNS.NUMTOMAS + " INTEGER"
                 + COLUMNS.COMENTARIO + " TEXT, "
                 + COLUMNS.FECHA + " INTEGER"
                 + ")";
