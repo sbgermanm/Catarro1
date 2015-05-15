@@ -6,12 +6,10 @@ import android.database.Cursor;
 import com.sebas.catarro1.db.BaseDePatos;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
-public class SintomasDB implements DataBaseTable {
+public class SintomaDB implements DataBaseTable {
 
     private Integer idSintoma;
 
@@ -22,7 +20,16 @@ public class SintomasDB implements DataBaseTable {
     private String comentarioSintoma;
     private Long fechaSintoma;
 
-    public SintomasDB(Integer id, String nombre, Double valor, String unidadValor, String comentario, Long fecha) {
+    public SintomaDB(Integer id, String nombre, Double valor, String unidadValor, String comentario, Long fecha) {
+        this.idSintoma = id;
+        this.nombreSintoma = nombre;
+        this.valorSintoma = valor;
+        this.unidadesValorSintoma = unidadValor;
+        this.comentarioSintoma = comentario;
+        this.fechaSintoma = fecha;
+    }
+
+    public SintomaDB(String nombre, Double valor, String unidadValor, String comentario, Long fecha) {
         this.idSintoma = id;
         this.nombreSintoma = nombre;
         this.valorSintoma = valor;
@@ -93,23 +100,39 @@ public class SintomasDB implements DataBaseTable {
     private static enum COLUMNS {ID_SINTOMA, NOMBRE, VALOR, UNIDAD_VALOR, COMENTARIO, FECHA};
 
 
+
+
+
+
     // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
-    public static List<SintomasDB> selectAll(BaseDePatos baseDePatos) {
+    public static List<SintomaDB> selectAll(BaseDePatos baseDePatos) {
         Cursor cursor = baseDePatos.selectAll(TABLE_NAME);
+        return sintomasFromCursor(cursor);
+    }
+
+    private static List<SintomaDB> sintomasFromCursor(Cursor cursor) {
         int num = cursor.getCount();
-        ArrayList<SintomasDB> sintomas = new ArrayList<>(num);
+        ArrayList<SintomaDB> sintomas = new ArrayList<>(num);
         while (cursor.moveToNext()) {
-            SintomasDB p = getSintomaFromCursor(cursor);
+            SintomaDB p = getSintomaFromCursor(cursor);
             sintomas.add(p);
         }
         cursor.close();
         return sintomas;
     }
 
-    public static SintomasDB findById(BaseDePatos baseDePatos, Integer id) {
+    public static List<SintomaDB> selectAllOrderedByDateDesc(BaseDePatos baseDePatos) {
+        Cursor cursor = baseDePatos.selectAll(TABLE_NAME, COLUMNS.FECHA + " DESC");
+        return sintomasFromCursor(cursor);
+    }
+
+
+
+
+    public static SintomaDB findById(BaseDePatos baseDePatos, Integer id) {
         Cursor cursor = baseDePatos.findById(TABLE_NAME, COLUMNS.ID_SINTOMA.toString(), id);
         cursor.moveToFirst();
-        SintomasDB p = getSintomaFromCursor(cursor);
+        SintomaDB p = getSintomaFromCursor(cursor);
         cursor.close();
         return p;
     }
@@ -147,14 +170,16 @@ public class SintomasDB implements DataBaseTable {
 
 
 
-    private static SintomasDB getSintomaFromCursor(Cursor cursor) {
+    private static SintomaDB getSintomaFromCursor(Cursor cursor) {
         Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_SINTOMA.toString()));
         String nombre = cursor.getString(cursor.getColumnIndex(COLUMNS.NOMBRE.toString()));
         Long fecha = cursor.getLong(cursor.getColumnIndex(COLUMNS.FECHA.toString()));
         Double valor = cursor.getDouble(cursor.getColumnIndex(COLUMNS.VALOR.toString()));
         String unidadValor = cursor.getString(cursor.getColumnIndex((COLUMNS.UNIDAD_VALOR.toString())));
         String comentario = cursor.getString(cursor.getColumnIndex((COLUMNS.COMENTARIO.toString())));
-        SintomasDB p = new SintomasDB(id, nombre, valor, unidadValor, comentario, fecha);
+
+
+        SintomaDB p = new SintomaDB(id, nombre, valor, unidadValor, comentario, fecha);
 
         return p;
     }
@@ -167,59 +192,17 @@ public class SintomasDB implements DataBaseTable {
 
 
 
-
-
-
     public static String getCreateTable() {
         return "CREATE TABLE " +
                 TABLE_NAME + "("
-                + COLUMNS.ID_PERSONA + " INTEGER PRIMARY KEY, "
+                + COLUMNS.ID_SINTOMA + " INTEGER PRIMARY KEY, "
                 + COLUMNS.NOMBRE + " TEXT, "
-                + COLUMNS.FECHA_NACIMEINTO + " INTEGER, "
-                + COLUMNS.PESO + " INTEGER"
+                + COLUMNS.VALOR +  " REAL, "
+                + COLUMNS.UNIDAD_VALOR + " TEXT, "
+                + COLUMNS.COMENTARIO + " TEXT, "
+                + COLUMNS.FECHA + " INTEGER"
                 + ")";
     }
 
-
-
-    public SintomasDB(Integer id, String nombre, Integer peso, Long fechaNacimiento) {
-        super();
-        this.idPersona = id;
-        this.nombreSintoma = nombre;
-        this.peso = peso;
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public SintomasDB(String nombre, Integer peso, Long fechaNacimiento) {
-        super();
-        this.nombreSintoma = nombre;
-        this.peso = peso;
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-
-
-
-
-    public int getEdad(){
-        Date hoy = new Date();
-        Calendar calHoy = Calendar.getInstance();
-        calHoy.setTime(hoy);
-
-        Calendar calNac = Calendar.getInstance();
-        calNac.setTimeInMillis(this.fechaNacimiento);
-
-        int annoNac = calNac.get(Calendar.YEAR);
-        int annoHoy = calHoy.get(Calendar.YEAR);
-
-        int anos = annoHoy-annoNac;
-
-        int diaAnoNac = calNac.get(Calendar.DAY_OF_YEAR);
-        int diaAnoHoy = calHoy.get(Calendar.DAY_OF_YEAR);
-
-        if (diaAnoHoy<diaAnoNac) anos--;
-
-        return anos;
-    }
 
 }

@@ -1,22 +1,19 @@
 package com.sebas.catarro1.catarro;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
+import com.sebas.catarro1.db.dataObjects.SintomaDB;
 import com.sebas.catarro1.util.AdaptadorListasBasico;
-import com.sebas.catarro1.util.AdaptadorListasDoblesBasico;
 import com.sebas.catarro1.util.Miscelanea;
 
 import java.util.List;
@@ -67,8 +64,8 @@ public class ActividadCatarro extends ActionBarActivity implements AdapterView.O
     }
 
     private void mostrarSintomas() {
-        List<SintomasDB> sintomas = SintomasDB.selectAllOrderedByDateDesc(baseDePatos);
-        AdaptadorListasBasico<SintomasDB> adaptadorListasBasico = new AdaptadorListasBasico<SintomasDB>(this, android.R.layout.simple_list_item_1 , sintomas);
+        List<SintomaDB> sintomas = SintomaDB.selectAllOrderedByDateDesc(baseDePatos);
+        AdaptadorListasBasico<SintomaDB> adaptadorListasBasico = new AdaptadorListasBasico<SintomaDB>(this, android.R.layout.simple_list_item_1 , sintomas);
         lvListaSintomas.setAdapter(adaptadorListasBasico);
     }
 
