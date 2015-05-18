@@ -145,27 +145,4 @@ public class PersonaDb implements DataBaseTable {
 
 
 
-
-
-    public int getEdad(){
-        Date hoy = new Date();
-        Calendar calHoy = Calendar.getInstance();
-        calHoy.setTime(hoy);
-
-        Calendar calNac = Calendar.getInstance();
-        calNac.setTimeInMillis(this.fechaNacimiento);
-
-        int annoNac = calNac.get(Calendar.YEAR);
-        int annoHoy = calHoy.get(Calendar.YEAR);
-
-        int anos = annoHoy-annoNac;
-
-        int diaAnoNac = calNac.get(Calendar.DAY_OF_YEAR);
-        int diaAnoHoy = calHoy.get(Calendar.DAY_OF_YEAR);
-
-        if (diaAnoHoy<diaAnoNac) anos--;
-
-        return anos;
-    }
-
 }

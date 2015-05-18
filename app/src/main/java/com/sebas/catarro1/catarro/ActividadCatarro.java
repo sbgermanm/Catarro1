@@ -1,5 +1,7 @@
 package com.sebas.catarro1.catarro;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,20 +14,24 @@ import android.widget.TextView;
 import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
+import com.sebas.catarro1.db.dataObjects.PrescripcionDB;
 import com.sebas.catarro1.db.dataObjects.SintomaDB;
+import com.sebas.catarro1.persona.ActividadNuevaPersona;
 import com.sebas.catarro1.util.AdaptadorListasBasico;
+import com.sebas.catarro1.util.ConfirmationDialogFragment;
 import com.sebas.catarro1.util.Miscelanea;
 
 import java.util.List;
 
-public class ActividadCatarro extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class ActividadCatarro extends ActionBarActivity implements ConfirmationDialogFragment.EliminarPersonaDialogListener, AdapterView.OnItemClickListener {
 
 
     private BaseDePatos baseDePatos;
     private Integer catarroID;
-    private TextView tvNombre;
+    private TextView tvNombreCatarro;
     private ListView lvListaSintomas;
     private ListView lvListaTomas;
+    private Integer personaID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +41,10 @@ public class ActividadCatarro extends ActionBarActivity implements AdapterView.O
         baseDePatos = BaseDePatos.getInstance(getApplicationContext());
         Bundle bundle = getIntent().getExtras();
         catarroID = Miscelanea.BundleGetInteger(bundle, "ID_CATARRO");
+        personaID = Miscelanea.BundleGetInteger(bundle, "ID_PERSONA");
 
-        tvNombre = (TextView) findViewById(R.id.etFechaYNombreCatarro);
+
+        tvNombreCatarro = (TextView) findViewById(R.id.etFechaYNombreCatarro);
         lvListaSintomas = (ListView) findViewById(R.id.listViewSintomas);
         lvListaTomas = (ListView) findViewById(R.id.listViewTomas);
 
@@ -57,8 +65,8 @@ public class ActividadCatarro extends ActionBarActivity implements AdapterView.O
     }
 
     private void mostrarTomas() {
-        List<TomasDB> tomas = TomasDB.selectAllOrderedByDateDesc(baseDePatos);
-        AdaptadorListasBasico<TomasDB> adaptadorListasBasico = new AdaptadorListasBasico<TomasDB>(this, android.R.layout.simple_list_item_1 , tomas);
+        List<PrescripcionDB> tomas = PrescripcionDB.selectAllOrderedByDateDesc(baseDePatos);
+        AdaptadorListasBasico<PrescripcionDB> adaptadorListasBasico = new AdaptadorListasBasico<PrescripcionDB>(this, android.R.layout.simple_list_item_1 , tomas);
         lvListaTomas.setAdapter(adaptadorListasBasico);
 
     }
@@ -71,7 +79,7 @@ public class ActividadCatarro extends ActionBarActivity implements AdapterView.O
 
     private void mostrarCatarro(Integer catarroID) {
         CatarroDb catarroDb = CatarroDb.findById(baseDePatos, catarroID);
-        tvNombre.setText(catarroDb.toString());
+        tvNombreCatarro.setText(catarroDb.toString());
     }
 
 
@@ -90,7 +98,26 @@ public class ActividadCatarro extends ActionBarActivity implements AdapterView.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.actionBarModificarCatarro) {
+            Intent i = new Intent(this, ActividadNuevoCatarro.class);
+            i.putExtra("ID_CATARRO", catarroID);
+            i.putExtra("ID_PERSONA", personaID);
+
+            startActivity(i);
+            return true;
+        }
+        if (id == R.id.actionBarEliminarCatarro) {
+            DialogFragment df = new ConfirmationDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("TITULO", getString(R.string.message_dialog_eliminar_catarro));
+            df.setArguments(bundle);
+            df.show(getFragmentManager(), "eliminarCatarro");
+            return true;
+        }
+        if (id == R.id.actionBarNuevoSintoma) {
+            return true;
+        }
+        if (id == R.id.actionBarNuevaToma) {
             return true;
         }
 
@@ -128,6 +155,22 @@ public class ActividadCatarro extends ActionBarActivity implements AdapterView.O
     }
 
     private void onItemClickListViewTomas(AdapterView<?> parent, View view, int position, long id) {
+    }
+
+
+
+
+
+    //    ----------------------------- ConfirmationDialogFragment.EliminarPersonaDialogListener Callbacks Controler methods ----------------------------------
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        CatarroDb.delete(baseDePatos, catarroID);
+        this.finish();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
     }
 
 }

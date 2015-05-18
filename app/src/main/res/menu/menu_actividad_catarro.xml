@@ -2,6 +2,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.sebas.catarro1.catarro.ActividadCatarro">
+
+    <item android:id="@+id/actionBarModificarCatarro" android:title="@string/actionBar_modificarCatarro"
+        android:orderInCategory="20" app:showAsAction="always" android:icon="@mipmap/ic_action_modificar_catarro"/>
+
+
+    <item android:id="@+id/actionBarEliminarCatarro" android:title="@string/action_eliminarCatarro"
+        android:orderInCategory="10" app:showAsAction="always" android:icon="@mipmap/ic_action_eliminar_catarro"/>
+
+
+    <item android:id="@+id/actionBarNuevoSintoma" android:title="@string/action_nuevoSintoma"
+        android:orderInCategory="30" app:showAsAction="always" android:icon="@drawable/ic_nuevo_sintoma"/>
+
+    <item android:id="@+id/actionBarNuevaToma" android:title="@string/action_nuevaToma"
+        android:orderInCategory="30" app:showAsAction="always" android:icon="@mipmap/ic_nueva_toma"/>
+
+
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

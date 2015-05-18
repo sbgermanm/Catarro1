@@ -10,41 +10,44 @@ import android.util.Log;
 
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PersonaDb;
+import com.sebas.catarro1.db.dataObjects.PrescripcionDB;
+import com.sebas.catarro1.db.dataObjects.SintomaDB;
 
 
 /**
  * Created by sgerman on 18/04/2015.
- *
- *
- *
- *
- public class EagerSingleton {
-    private static volatile EagerSingleton instance = null;
-
-    // private constructor
-     private EagerSingleton() {
-     }
-
-     public static EagerSingleton getInstance() {
-         if (instance == null) {
-            synchronized (EagerSingleton.class) {
-             // Double check
-            if (instance == null) {
-                instance = new EagerSingleton();
-            }
-         }
-     }
-     return instance;
-     }
- }
+ * <p/>
+ * <p/>
+ * <p/>
+ * <p/>
+ * public class EagerSingleton {
+ * private static volatile EagerSingleton instance = null;
+ * <p/>
+ * // private constructor
+ * private EagerSingleton() {
+ * }
+ * <p/>
+ * public static EagerSingleton getInstance() {
+ * if (instance == null) {
+ * synchronized (EagerSingleton.class) {
+ * // Double check
+ * if (instance == null) {
+ * instance = new EagerSingleton();
+ * }
+ * }
+ * }
+ * return instance;
+ * }
+ * }
  */
 public class BaseDePatos extends SQLiteOpenHelper {
 
     //Lazy Singleton, as we need to pass a context...
     // theInstance
     private static volatile BaseDePatos theInstance = null;
+
     //prevents construction
-    private BaseDePatos(Context context){
+    private BaseDePatos(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -61,10 +64,8 @@ public class BaseDePatos extends SQLiteOpenHelper {
     }
 
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "anotatomasDB.db";
-
-
 
 
     @Override
@@ -72,21 +73,21 @@ public class BaseDePatos extends SQLiteOpenHelper {
         String CREAR_TABLA_PERSONA = PersonaDb.getCreateTable();
         //Log.d("sebas", CREAR_TABLA_PERSONA);
         db.execSQL(CREAR_TABLA_PERSONA);
-
         db.execSQL(CatarroDb.getCreateTable());
+        db.execSQL(SintomaDB.getCreateTable());
+        db.execSQL(PrescripcionDB.getCreateTable());
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + PersonaDb.TABLA_PERSONA);
+        db.execSQL("DROP TABLE IF EXISTS " + PersonaDb.TABLA_PERSONA);
         db.execSQL("DROP TABLE IF EXISTS " + CatarroDb.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SintomaDB.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PrescripcionDB.TABLE_NAME);
+
         onCreate(db);
     }
-
-
-
-
 
 
     public void add(String tabla, ContentValues values) {
@@ -116,7 +117,7 @@ public class BaseDePatos extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(tableName, null, idColumnName + " = " +id , null, null, null, null, null);
+        Cursor cursor = db.query(tableName, null, idColumnName + " = " + id, null, null, null, null, null);
         return cursor;
     }
 

@@ -1,7 +1,11 @@
 package com.sebas.catarro1.catarro;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
+import com.sebas.catarro1.persona.ActividadPersona;
 import com.sebas.catarro1.util.ElegirFechaFragment;
 import com.sebas.catarro1.util.Miscelanea;
 import com.sebas.catarro1.util.SebasUnCheckedException;
@@ -27,6 +32,7 @@ import java.util.Date;
 public class ActividadNuevoCatarro extends ActionBarActivity {
     EditText etNombreCatarro;
     TextView tvFechaCatarro;
+    TextView tvTitulo;
     EditText etComentariosCatarro;
     private Integer catarroID;
     BaseDePatos baseDePatos;
@@ -37,6 +43,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividad_nuevo_catarro);
+        tvTitulo = (TextView) findViewById(R.id.tvNuevoCatarro);
         tvFechaCatarro = (TextView) findViewById(R.id.datePickerFechaCatarro);
         etNombreCatarro = (EditText) findViewById(R.id.etNombreCatarro);
         etComentariosCatarro = (EditText) findViewById(R.id.multiLineComentarios);
@@ -47,6 +54,10 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         catarroID = Miscelanea.BundleGetInteger(bundle, "ID_CATARRO");
         personaID = Miscelanea.BundleGetInteger(bundle, "ID_PERSONA");
 
+        if (null != personaID) {
+            tvTitulo.setText(getString(R.string.lbModificarCatarro));
+        }
+
         if (null != catarroID){
                 baseDePatos = BaseDePatos.getInstance(getApplicationContext());
                 recuperarCatarro(catarroID);
@@ -55,6 +66,14 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
             Bundle bundleFechaInicial = dameFechaInicial();
             tvFechaCatarro.setText(Miscelanea.dameFechaComoString(bundleFechaInicial.getInt("anno"), bundleFechaInicial.getInt("mes"), bundleFechaInicial.getInt("dia")));
         }
+
+
+        // Set up action bar.
+        // de momento no mostramos el UP, aunque el codigo está
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+
     }
 
 
@@ -83,6 +102,27 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
+            //deshabilitado de momento. Aqui llegamos desde actividad persona y tambien desde actividad catarro, modificar. El up siempre nos lleva a atividad persona
+            case android.R.id.home:
+                // This is called when the Home (Up) button is pressed in the action bar.
+                // Create a simple intent that starts the hierarchical parent activity and
+                // use NavUtils in the Support Package to ensure proper handling of Up.
+                Intent upIntent = new Intent(this, ActividadPersona.class);
+                upIntent.putExtra("ID_PERSONA", personaID);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    // This activity is not part of the application's task, so create a new task
+                    // with a synthesized back stack.
+                    TaskStackBuilder.create(this)
+                            // If there are ancestor activities, they should be added here.
+                            .addNextIntent(upIntent)
+                            .startActivities();
+                    finish();
+                } else {
+                    // This activity is part of the application's task, so simply
+                    // navigate up to the hierarchical parent activity.
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+                return true;
             case R.id.guardar:
 
                 if (!bDatosOk())
@@ -161,6 +201,8 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         return fecha;
     }
 
+
+    //-------------------------------------- Callback date picker
     DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -174,4 +216,23 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
     };
 
 
+    //--------------------------- Navigating UP support --------------------
+    /*
+        por alguna razon, esta actividad tiene en el manifest puesto que su padre es ActividadPersona
+        eso causa que, aunque no se haya puesto en el on_create esto:
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        salga el boton de UP.
+        Va al padre, al on_create pero ahí el personID está vacio.
+     */
+//
+    //
+    /*
+    Mejor que esto vamos a tratae el R.id.home del onOptionsItemSelected
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        Intent intent = super.getSupportParentActivityIntent();
+        intent.putExtra("ID_PERSONA", personaID);
+        return intent;
+    }
+    */
 }

@@ -36,6 +36,10 @@
             android:name=".catarro.ActividadCatarro"
             android:label="@string/title_activity_actividad_catarro" >
         </activity>
+        <activity
+            android:name=".sintoma.ActividadNuevoSintoma"
+            android:label="@string/title_activity_actividad_nuevo_sintoma" >
+        </activity>
     </application>
 
 </manifest>

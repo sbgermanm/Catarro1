@@ -231,5 +231,8 @@ public class PrescripcionDB implements DataBaseTable {
                 + ")";
     }
 
-
+    @Override
+    public String toString() {
+        return "PENDIENTE";
+    }
 }

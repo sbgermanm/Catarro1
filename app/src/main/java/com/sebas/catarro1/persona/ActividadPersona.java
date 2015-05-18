@@ -22,6 +22,7 @@ import com.sebas.catarro1.db.dataObjects.PersonaDb;
 import com.sebas.catarro1.util.AdaptadorListasBasico;
 import com.sebas.catarro1.util.AdaptadorListasDoblesBasico;
 import com.sebas.catarro1.util.ConfirmationDialogFragment;
+import com.sebas.catarro1.util.Miscelanea;
 
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
     private void recuperarPersona(int id_persona) {
         PersonaDb personaDb = PersonaDb.findById(baseDePatos, id_persona);
         String aux = personaDb.getNombre() ;
-        int edad = personaDb.getEdad();
+        int edad = Miscelanea.getEdad(personaDb.getFechaNacimiento());
         aux = aux + ", " + edad + " años";
 
         etNombre.setText(aux);
@@ -155,6 +156,7 @@ public class ActividadPersona extends ActionBarActivity implements ConfirmationD
         //lanzarPantallaCatarro
         Intent i = new Intent(this, ActividadCatarro.class);
         i.putExtra("ID_CATARRO", item.getIdCatarro());
+        i.putExtra("ID_PERSONA", personaID); // up navigation support
         startActivity(i);
     }
 }

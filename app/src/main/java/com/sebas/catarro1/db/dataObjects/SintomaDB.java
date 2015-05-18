@@ -4,8 +4,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.sebas.catarro1.db.BaseDePatos;
+import com.sebas.catarro1.util.Miscelanea;
+
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,7 +35,6 @@ public class SintomaDB implements DataBaseTable {
     }
 
     public SintomaDB(String nombre, Double valor, String unidadValor, String comentario, Long fecha) {
-        this.idSintoma = id;
         this.nombreSintoma = nombre;
         this.valorSintoma = valor;
         this.unidadesValorSintoma = unidadValor;
@@ -202,6 +206,17 @@ public class SintomaDB implements DataBaseTable {
                 + COLUMNS.COMENTARIO + " TEXT, "
                 + COLUMNS.FECHA + " INTEGER"
                 + ")";
+    }
+
+    @Override
+    public String toString() {
+        String aux = Miscelanea.dameFechaPasadaComprensible(this.fechaSintoma);
+        aux += ", " + Miscelanea.dameHoraComoString(this.fechaSintoma);
+        aux += ", " + this.nombreSintoma;
+        aux += ", " + this.valorSintoma;
+        aux += ", " + this.unidadesValorSintoma;
+        return aux;
+
     }
 
 

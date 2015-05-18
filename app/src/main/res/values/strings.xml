@@ -41,4 +41,18 @@
     <string name="title_activity_actividad_catarro">ActividadCatarro</string>
     <string name="lbSintomas">Sintomas</string>
     <string name="lbTomas">Tomas</string>
+    <string name="actionBar_modificarCatarro">modificar</string>
+    <string name="action_eliminarCatarro">Eliminar Catarro</string>
+    <string name="action_nuevoSintoma">Nuevo sintoma</string>
+    <string name="action_nuevaToma">Nueva toma</string>
+    <string name="message_dialog_eliminar_catarro">¿Eliminar catarro?</string>
+    <string name="lbModificarCatarro">Modificar catarro</string>
+    <string name="title_activity_actividad_nuevo_sintoma">ActividadNuevoSintoma</string>
+    <string name="lbNuevoSintoma">Nuevo Sintoma</string>
+    <string name="lbNombreSintoma">Nombre</string>
+    <string name="lbFechaSintoma">Fecha</string>
+    <string name="etFechaSintoma">01 may 2015</string>
+    <string name="lbValorSintoma">Valor</string>
+    <string name="etValor">0</string>
+    <string name="etUnidadesValor">º</string>
 </resources>
