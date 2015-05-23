@@ -211,6 +211,7 @@ public class ActividadNuevoSintoma extends ActionBarActivity {
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
+
     public void mostrarDialogoElegirHora(View v) throws ParseException {
         Bundle horaInicial = Miscelanea.dameHoraComoBundle(tvHoraSintoma.getText().toString());
 
