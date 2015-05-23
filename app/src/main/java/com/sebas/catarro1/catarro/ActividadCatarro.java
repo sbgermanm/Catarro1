@@ -17,6 +17,7 @@ import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PrescripcionDB;
 import com.sebas.catarro1.db.dataObjects.SintomaDB;
 import com.sebas.catarro1.persona.ActividadNuevaPersona;
+import com.sebas.catarro1.sintoma.ActividadNuevoSintoma;
 import com.sebas.catarro1.util.AdaptadorListasBasico;
 import com.sebas.catarro1.util.ConfirmationDialogFragment;
 import com.sebas.catarro1.util.Miscelanea;
@@ -115,8 +116,11 @@ public class ActividadCatarro extends ActionBarActivity implements ConfirmationD
             return true;
         }
         if (id == R.id.actionBarNuevoSintoma) {
-            return true;
-        }
+            Intent i = new Intent(this, ActividadNuevoSintoma.class);
+            i.putExtra("ID_CATARRO", catarroID);
+
+            startActivity(i);
+            return true;        }
         if (id == R.id.actionBarNuevaToma) {
             return true;
         }

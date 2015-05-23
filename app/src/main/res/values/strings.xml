@@ -53,6 +53,8 @@
     <string name="lbFechaSintoma">Fecha</string>
     <string name="etFechaSintoma">01 may 2015</string>
     <string name="lbValorSintoma">Valor</string>
-    <string name="etValor">0</string>
+    <string name="etValor">38.5</string>
     <string name="etUnidadesValor">º</string>
+    <string name="etHoraSintoma">18:35</string>
+    <string name="lbModificarSintoma">Modificar Sintoma</string>
 </resources>

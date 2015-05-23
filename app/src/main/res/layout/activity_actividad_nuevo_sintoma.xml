@@ -1,144 +1,163 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.sebas.catarro1.sintoma.ActividadNuevoSintoma">
 
-    <TextView android:text="@string/lbNuevoSintoma"
+    <TextView
+        android:id="@+id/lbNuevoSintoma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/lbNuevoSintoma" />
-
-    <TextView
-        android:id="@+id/lbNombreSintoma"
-        android:text="@string/lbNombreSintoma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lbNuevoSintoma"
-        android:editable="false"
-        android:enabled="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp" />
-
-    <EditText
-        android:id="@+id/etNombreSintoma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_alignBottom="@+id/lbNombreSintoma"
-        android:layout_toRightOf="@+id/lbNombreSintoma"
-        android:layout_toEndOf="@+id/lbNombreSintoma"
-        android:layout_marginLeft="24dp"
-        />
+        android:text="@string/lbNuevoSintoma" />
 
 
-
-
-
-    <TextView
-        android:id="@+id/lbValorSintoma"
-        android:text="@string/lbValorSintoma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:enabled="false"
-        android:layout_below="@+id/lbNombreSintoma"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="38dp" />
-
-    <EditText
-        android:id="@+id/etValor"
-        android:text="@string/etValor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:layout_alignBottom="@+id/lbValorSintoma"
-        android:layout_alignLeft="@+id/etNombreSintoma"
-        android:layout_alignStart="@+id/etNombreSintoma" />
-
-    <EditText
-        android:id="@+id/etUnidadesValor"
-        android:text="@string/etUnidadesValor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:layout_alignBottom="@+id/etValor"
-        android:layout_alignLeft="@+id/etValor"
-        android:layout_alignStart="@+id/etValor"
-        android:layout_marginLeft="24dp"
-        />
-
-
-
-
-    <TextView
-        android:id="@+id/lbFechaSintoma"
-        android:text="@string/lbFechaSintoma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:enabled="false"
-        android:layout_marginTop="38dp"
-        android:layout_below="@+id/lbValorSintoma"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
-    <TextView
-        android:id="@+id/datePickerFechaSintoma"
-        android:text="@string/etFechaSintoma"
-        style="?android:attr/spinnerItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-
-        android:ellipsize="end"
-        android:onClick="mostrarDialogoElegirFecha"
-        android:singleLine="true"
-        android:textSize="18sp"
-        android:layout_alignBottom="@+id/lbFechaSintoma"
-        android:layout_alignLeft="@+id/etNombreSintoma"
-        android:layout_alignStart="@+id/etNombreSintoma" />
-
-    <TextView
-        android:id="@+id/labelComentarioCatarro"
-        android:text="@string/labelComentarioCatarro"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout0"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lbFechaSintoma"
-        android:layout_marginTop="36dp"
-        android:editable="false"
-        android:enabled="false"
-        />
+        android:layout_below="@id/lbNuevoSintoma"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/multiLineComentarios"
-        android:text="@string/multiLineComentarios"
-        android:layout_width="fill_parent"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+
+            android:src="@drawable/ic_persona" />
+
+
+        <EditText
+            android:id="@+id/etNombreSintoma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/labelComentarioCatarro"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:lines="8"
-        android:maxLines="10"
-        android:minLines="6"
-        android:scrollbars="vertical"
+        android:layout_below="@id/linearLayout0"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
 
-        android:textAlignment="viewStart"
-        android:gravity="start"
-        android:focusable="true" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
 
+            android:src="@drawable/ic_mareos" />
+
+        <EditText
+            android:id="@+id/etValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text="@string/etValor"
+
+            android:layout_gravity="center_vertical" />
+
+        <EditText
+            android:id="@+id/etUnidadesValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text="@string/etUnidadesValor"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout1"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+
+            android:src="@drawable/ic_calendar" />
+
+        <TextView
+            android:id="@+id/datePickerFechaSintoma"
+            style="?android:attr/spinnerItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:onClick="mostrarDialogoElegirFecha"
+            android:singleLine="true"
+            android:text="@string/etFechaSintoma" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:src="@drawable/ic_reloj" />
+
+        <TextView
+            android:id="@+id/datePickerHoraSintoma"
+            style="?android:attr/spinnerItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:onClick="mostrarDialogoElegirHora"
+            android:singleLine="true"
+            android:text="@string/etHoraSintoma" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout2"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+
+            android:src="@drawable/ic_comentarios" />
+
+        <EditText
+            android:id="@+id/multiLineComentarios"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:focusable="true"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:maxLines="10"
+
+            android:minLines="6"
+            android:scrollbars="vertical"
+            android:text="@string/multiLineComentarios" />
+    </LinearLayout>
 
 </RelativeLayout>

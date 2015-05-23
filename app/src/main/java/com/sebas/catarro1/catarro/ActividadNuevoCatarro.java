@@ -58,12 +58,11 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
             tvTitulo.setText(getString(R.string.lbModificarCatarro));
         }
 
-        if (null != catarroID){
-                baseDePatos = BaseDePatos.getInstance(getApplicationContext());
-                recuperarCatarro(catarroID);
-        }
-        else {
-            Bundle bundleFechaInicial = dameFechaInicial();
+        if (null != catarroID) {
+            baseDePatos = BaseDePatos.getInstance(getApplicationContext());
+            recuperarCatarro(catarroID);
+        } else {
+            Bundle bundleFechaInicial = Miscelanea.dameFechaInicial();
             tvFechaCatarro.setText(Miscelanea.dameFechaComoString(bundleFechaInicial.getInt("anno"), bundleFechaInicial.getInt("mes"), bundleFechaInicial.getInt("dia")));
         }
 
@@ -154,10 +153,10 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         Date date = Miscelanea.dameStringComoFecha(fechaCatarro);
 
         if (null == catarroID) {
-            CatarroDb catarro = new CatarroDb(etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString(), personaID );
+            CatarroDb catarro = new CatarroDb(etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString(), personaID);
             catarro.addToDB(baseDePatos);
-        }else{
-            CatarroDb catarro = new CatarroDb(catarroID, etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString(), personaID );
+        } else {
+            CatarroDb catarro = new CatarroDb(catarroID, etNombreCatarro.getText().toString(), date.getTime(), etComentariosCatarro.getText().toString(), personaID);
             int rowsUpdated = catarro.updateToDB(baseDePatos);
             if (0 == rowsUpdated) throw new SebasUnCheckedException();
 
@@ -176,8 +175,8 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
     }
 
 
-    public void mostrarDialogoElegirFecha(View v) {
-        Bundle fechaInicial = dameFechaInicial();
+    public void mostrarDialogoElegirFecha(View v) throws ParseException {
+        Bundle fechaInicial = Miscelanea.dameFechaCortaComoBundle(tvFechaCatarro.getText().toString());
 
         DialogFragment newFragment = new ElegirFechaFragment();
         newFragment.setArguments(fechaInicial);
@@ -189,17 +188,6 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private Bundle dameFechaInicial() {
-        Date aux = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(aux);
-        Bundle fecha = new Bundle();
-        fecha.putInt("dia", cal.get(Calendar.DAY_OF_MONTH));
-        fecha.putInt("mes", cal.get(Calendar.MONTH));
-        fecha.putInt("anno", cal.get(Calendar.YEAR));
-
-        return fecha;
-    }
 
 
     //-------------------------------------- Callback date picker

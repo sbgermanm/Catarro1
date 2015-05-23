@@ -151,8 +151,8 @@ public class ActividadNuevaPersona extends ActionBarActivity {
     }
 
 
-    public void mostrarDialogoElegirFecha(View v) {
-        Bundle fechaInicial = dameFechaNacimientoDefecto();
+    public void mostrarDialogoElegirFecha(View v) throws ParseException {
+        Bundle fechaInicial = Miscelanea.dameFechaCortaComoBundle(tvFechaNacimiento.getText().toString());
 
         DialogFragment newFragment = new ElegirFechaFragment();
         newFragment.setArguments(fechaInicial);
