@@ -1,13 +1,12 @@
 package com.sebas.catarro1.catarro;
 
-import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +24,6 @@ import com.sebas.catarro1.util.Miscelanea;
 import com.sebas.catarro1.util.SebasUnCheckedException;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ActividadNuevoCatarro extends ActionBarActivity {
@@ -123,9 +120,11 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
                 }
                 return true;
             case R.id.guardar:
-
-                if (!bDatosOk())
+                boolean resultado = true;
+                if (!bDatosOk()) {
                     Toast.makeText(this, "Introduzca los datos requeridos", Toast.LENGTH_SHORT).show();
+                    resultado = false;
+                }
                 else {
 //                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
                     try {
@@ -134,9 +133,9 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
                         Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
+                    this.finish();
                 }
-                this.finish();
-                return true;
+                return resultado;
             case R.id.cancelar:
                 Toast.makeText(this, "nok", Toast.LENGTH_SHORT).show();
                 this.finish();

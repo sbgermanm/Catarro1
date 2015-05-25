@@ -57,4 +57,5 @@
     <string name="etUnidadesValor">º</string>
     <string name="etHoraSintoma">18:35</string>
     <string name="lbModificarSintoma">Modificar Sintoma</string>
+    <string name="etNombreSintoma">Nombre sintoma</string>
 </resources>

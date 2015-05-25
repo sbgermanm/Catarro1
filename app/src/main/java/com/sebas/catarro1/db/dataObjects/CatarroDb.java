@@ -8,21 +8,18 @@ import com.sebas.catarro1.util.ItemParaListaDoble;
 import com.sebas.catarro1.util.Miscelanea;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
 public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
 
 
-    private final Integer idPersona;
 
     // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
-    public static List<CatarroDb> selectAll(BaseDePatos baseDePatos) {
-        Cursor cursor = baseDePatos.selectAll(TABLE_NAME);
+    public static List<CatarroDb> findByFKOrderedByDateDesc(BaseDePatos baseDePatos, Integer id) {
+        Cursor cursor = baseDePatos.findByFK(TABLE_NAME, FOREING_KEY, id, COLUMNS.FECHA + " DESC");
         return catarrosFromCursor(cursor);
-  }
+    }
 
     private static List<CatarroDb> catarrosFromCursor(Cursor cursor) {
         int num = cursor.getCount();
@@ -34,14 +31,6 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
         cursor.close();
         return catarros;
     }
-
-    public static List<CatarroDb> selectAllOrderedByDateDesc(BaseDePatos baseDePatos) {
-        Cursor cursor = baseDePatos.selectAll(TABLE_NAME, COLUMNS.FECHA + " DESC");
-        return catarrosFromCursor(cursor);
-    }
-
-
-
 
     public static CatarroDb findById(BaseDePatos baseDePatos, Integer idCatarro) {
         Cursor cursor = baseDePatos.findById(TABLE_NAME, COLUMNS.ID.toString(), idCatarro);
@@ -66,6 +55,7 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
         values.put(COLUMNS.FECHA.toString(), this.getFecha());
         values.put(COLUMNS.NOMBRE.toString(), this.getNombre());
         values.put(COLUMNS.COMENTARIOS.toString(), this.getComentarios());
+        values.put(COLUMNS.ID_PERSONA.toString(), this.getIdPersona());
         return values;
     }
 
@@ -75,16 +65,10 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
         return baseDePatos.update(TABLE_NAME, values, COLUMNS.ID.toString(), this.idCatarro);
     }
 
-
-
-
-
-
     public static final String TABLE_NAME = "catarro";
+    private static final String FOREING_KEY = COLUMNS.ID_PERSONA.toString() ;
 
-
-
-    private static enum COLUMNS {ID, NOMBRE, FECHA, COMENTARIOS, ID_PERSONA};
+    private enum COLUMNS {ID, NOMBRE, FECHA, COMENTARIOS, ID_PERSONA};
 
     private static CatarroDb getCatarroFromCursor(Cursor cursor) {
         Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID.toString()));
@@ -93,8 +77,7 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
         String comentarios = cursor.getString(cursor.getColumnIndex(COLUMNS.COMENTARIOS.toString()));
         Integer idPersona = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_PERSONA.toString()));
 
-        CatarroDb p = new CatarroDb(id, nombre, fecha, comentarios, idPersona);
-        return p;
+        return new CatarroDb(id, nombre, fecha, comentarios, idPersona);
     }
 
 
@@ -102,6 +85,16 @@ public class CatarroDb implements DataBaseTable, ItemParaListaDoble {
     String nombre;
     Long fecha;
     String comentarios;
+    Integer idPersona;
+
+    public Integer getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Integer idPersona) {
+        this.idPersona = idPersona;
+    }
+
 
     public Integer getIdCatarro() {
         return idCatarro;

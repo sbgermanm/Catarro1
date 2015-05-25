@@ -245,7 +245,7 @@ public class Miscelanea {
         String result;
 
         Calendar calender = Calendar.getInstance();
-        calender.set(Calendar.HOUR, hora);
+        calender.set(Calendar.HOUR_OF_DAY, hora);
         calender.set(Calendar.MINUTE, minutos);
         Date fecha = calender.getTime();
         result = sdfHora.format(fecha);
@@ -273,7 +273,7 @@ public class Miscelanea {
         Calendar cal = Calendar.getInstance();
         cal.setTime(aux);
         Bundle fecha = new Bundle();
-        fecha.putInt("hora", cal.get(Calendar.HOUR));
+        fecha.putInt("hora", cal.get(Calendar.HOUR_OF_DAY));
         fecha.putInt("minutos", cal.get(Calendar.MINUTE));
 
         return fecha;

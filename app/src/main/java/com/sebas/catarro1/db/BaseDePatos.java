@@ -121,6 +121,16 @@ public class BaseDePatos extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor findByFK(String tableName, String idColumnName, Integer id, String orderBy) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(tableName, null, idColumnName + " = " + id, null, null, null, orderBy, null);
+        return cursor;
+    }
+
+
+
     public void delete(String tabla, String primaryKey, Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(tabla, primaryKey + "=" + id, null);

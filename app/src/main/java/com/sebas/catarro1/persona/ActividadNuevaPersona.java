@@ -96,9 +96,11 @@ public class ActividadNuevaPersona extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.guardar:
-
-                if (!bDatosOk())
+                boolean resultado = true;
+                if (!bDatosOk()) {
                     Toast.makeText(this, "Introduzca los datos requeridos", Toast.LENGTH_SHORT).show();
+                    resultado = false;
+                }
                 else {
 //                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
                     try {
@@ -107,9 +109,9 @@ public class ActividadNuevaPersona extends ActionBarActivity {
                         Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
+                    this.finish();
                 }
-                this.finish();
-                return true;
+                return resultado;
             case R.id.cancelar:
                 Toast.makeText(this, "nok", Toast.LENGTH_SHORT).show();
                 this.finish();

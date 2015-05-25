@@ -2,8 +2,8 @@ package com.sebas.catarro1.catarro;
 
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,6 @@ import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.db.dataObjects.CatarroDb;
 import com.sebas.catarro1.db.dataObjects.PrescripcionDB;
 import com.sebas.catarro1.db.dataObjects.SintomaDB;
-import com.sebas.catarro1.persona.ActividadNuevaPersona;
 import com.sebas.catarro1.sintoma.ActividadNuevoSintoma;
 import com.sebas.catarro1.util.AdaptadorListasBasico;
 import com.sebas.catarro1.util.ConfirmationDialogFragment;
@@ -66,15 +65,15 @@ public class ActividadCatarro extends ActionBarActivity implements ConfirmationD
     }
 
     private void mostrarTomas() {
-        List<PrescripcionDB> tomas = PrescripcionDB.selectAllOrderedByDateDesc(baseDePatos);
-        AdaptadorListasBasico<PrescripcionDB> adaptadorListasBasico = new AdaptadorListasBasico<PrescripcionDB>(this, android.R.layout.simple_list_item_1 , tomas);
+        List<PrescripcionDB> tomas = PrescripcionDB.findByFKOrderedByDateDesc(baseDePatos, catarroID);
+        AdaptadorListasBasico<PrescripcionDB> adaptadorListasBasico = new AdaptadorListasBasico<>(this, android.R.layout.simple_list_item_1, tomas);
         lvListaTomas.setAdapter(adaptadorListasBasico);
 
     }
 
     private void mostrarSintomas() {
-        List<SintomaDB> sintomas = SintomaDB.selectAllOrderedByDateDesc(baseDePatos);
-        AdaptadorListasBasico<SintomaDB> adaptadorListasBasico = new AdaptadorListasBasico<SintomaDB>(this, android.R.layout.simple_list_item_1 , sintomas);
+        List<SintomaDB> sintomas = SintomaDB.findByFKOrderedByDateDesc(baseDePatos, catarroID);
+        AdaptadorListasBasico<SintomaDB> adaptadorListasBasico = new AdaptadorListasBasico<>(this, android.R.layout.simple_list_item_1, sintomas);
         lvListaSintomas.setAdapter(adaptadorListasBasico);
     }
 

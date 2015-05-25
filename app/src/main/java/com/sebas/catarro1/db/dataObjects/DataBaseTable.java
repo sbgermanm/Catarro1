@@ -12,5 +12,4 @@ public interface DataBaseTable {
 	public int updateToDB(BaseDePatos baseDePatos);
 
 
-
 	}

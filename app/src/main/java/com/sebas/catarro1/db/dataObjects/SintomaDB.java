@@ -6,11 +6,7 @@ import android.database.Cursor;
 import com.sebas.catarro1.db.BaseDePatos;
 import com.sebas.catarro1.util.Miscelanea;
 
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -24,84 +20,80 @@ public class SintomaDB implements DataBaseTable {
     private String unidadesValorSintoma;
     private String comentarioSintoma;
     private Long fechaSintoma;
+    private Integer idCatarro;
 
-    public SintomaDB(Integer id, String nombre, Double valor, String unidadValor, String comentario, Long fecha) {
+    public SintomaDB(Integer id, String nombre, Double valor, String unidadValor, String comentario, Long fecha, Integer catarroID) {
         this.idSintoma = id;
         this.nombreSintoma = nombre;
         this.valorSintoma = valor;
         this.unidadesValorSintoma = unidadValor;
         this.comentarioSintoma = comentario;
         this.fechaSintoma = fecha;
+        this.idCatarro = catarroID;
     }
 
-    public SintomaDB(String nombre, Double valor, String unidadValor, String comentario, Long fecha) {
+    public SintomaDB(String nombre, Double valor, String unidadValor, String comentario, Long fecha, Integer catarroID) {
         this.nombreSintoma = nombre;
         this.valorSintoma = valor;
         this.unidadesValorSintoma = unidadValor;
         this.comentarioSintoma = comentario;
         this.fechaSintoma = fecha;
+        this.idCatarro = catarroID;
     }
 
 
     public String getComentarioSintoma() {
         return comentarioSintoma;
     }
-
     public void setComentarioSintoma(String comentarioSintoma) {
         this.comentarioSintoma = comentarioSintoma;
     }
-
     public Long getFechaSintoma() {
         return fechaSintoma;
     }
-
     public void setFechaSintoma(Long fechaSintoma) {
         this.fechaSintoma = fechaSintoma;
     }
-
     public Integer getIdSintoma() {
         return idSintoma;
     }
-
     public void setIdSintoma(Integer idSintoma) {
         this.idSintoma = idSintoma;
     }
-
     public String getUnidadesValorSintoma() {
         return unidadesValorSintoma;
     }
-
     public void setUnidadesValorSintoma(String unidadesValorSintoma) {
         this.unidadesValorSintoma = unidadesValorSintoma;
     }
-
-
-
     public String getNombreSintoma() {
         return nombreSintoma;
     }
-
     public void setNombreSintoma(String nombreSintoma) {
         this.nombreSintoma = nombreSintoma;
     }
-
-
     public Double getValorSintoma() {
         return valorSintoma;
     }
-
     public void setValorSintoma(Double valorSintoma) {
         this.valorSintoma = valorSintoma;
     }
+    public Integer getIdCatarro() {
+        return idCatarro;
+    }
+    public void setIdCatarro(Integer idCatarro) {
+        this.idCatarro = idCatarro;
+    }
 
     public static final String TABLE_NAME = "sintoma";
+    private static final String FOREING_KEY = COLUMNS.ID_CATARRO.toString() ;
 
     public static String getPKColumnName() {
         return String.valueOf(COLUMNS.ID_SINTOMA);
     }
 
 
-    private static enum COLUMNS {ID_SINTOMA, NOMBRE, VALOR, UNIDAD_VALOR, COMENTARIO, FECHA};
+    private enum COLUMNS {ID_SINTOMA, NOMBRE, VALOR, UNIDAD_VALOR, COMENTARIO, FECHA, ID_CATARRO};
 
 
 
@@ -109,10 +101,6 @@ public class SintomaDB implements DataBaseTable {
 
 
     // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
-    public static List<SintomaDB> selectAll(BaseDePatos baseDePatos) {
-        Cursor cursor = baseDePatos.selectAll(TABLE_NAME);
-        return sintomasFromCursor(cursor);
-    }
 
     private static List<SintomaDB> sintomasFromCursor(Cursor cursor) {
         int num = cursor.getCount();
@@ -125,8 +113,8 @@ public class SintomaDB implements DataBaseTable {
         return sintomas;
     }
 
-    public static List<SintomaDB> selectAllOrderedByDateDesc(BaseDePatos baseDePatos) {
-        Cursor cursor = baseDePatos.selectAll(TABLE_NAME, COLUMNS.FECHA + " DESC");
+    public static List<SintomaDB> findByFKOrderedByDateDesc(BaseDePatos baseDePatos, Integer id) {
+        Cursor cursor = baseDePatos.findByFK(TABLE_NAME, FOREING_KEY, id, COLUMNS.FECHA + " DESC");
         return sintomasFromCursor(cursor);
     }
 
@@ -158,6 +146,7 @@ public class SintomaDB implements DataBaseTable {
         values.put(COLUMNS.UNIDAD_VALOR.toString(), this.getUnidadesValorSintoma());
         values.put(COLUMNS.COMENTARIO.toString(), this.getComentarioSintoma());
         values.put(COLUMNS.FECHA.toString(), this.getFechaSintoma());
+        values.put(COLUMNS.ID_CATARRO.toString(), this.getIdCatarro());
         return values;
     }
 
@@ -181,11 +170,10 @@ public class SintomaDB implements DataBaseTable {
         Double valor = cursor.getDouble(cursor.getColumnIndex(COLUMNS.VALOR.toString()));
         String unidadValor = cursor.getString(cursor.getColumnIndex((COLUMNS.UNIDAD_VALOR.toString())));
         String comentario = cursor.getString(cursor.getColumnIndex((COLUMNS.COMENTARIO.toString())));
+        Integer catarroID = cursor.getInt(cursor.getColumnIndex((COLUMNS.ID_CATARRO.toString())));
 
 
-        SintomaDB p = new SintomaDB(id, nombre, valor, unidadValor, comentario, fecha);
-
-        return p;
+        return new SintomaDB(id, nombre, valor, unidadValor, comentario, fecha, catarroID);
     }
 
 
@@ -205,6 +193,7 @@ public class SintomaDB implements DataBaseTable {
                 + COLUMNS.UNIDAD_VALOR + " TEXT, "
                 + COLUMNS.COMENTARIO + " TEXT, "
                 + COLUMNS.FECHA + " INTEGER"
+                + COLUMNS.ID_CATARRO + " INTEGER"
                 + ")";
     }
 

@@ -3,11 +3,8 @@ package com.sebas.catarro1.sintoma;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,16 +16,12 @@ import android.widget.Toast;
 
 import com.sebas.catarro1.R;
 import com.sebas.catarro1.db.BaseDePatos;
-import com.sebas.catarro1.db.dataObjects.CatarroDb;
-import com.sebas.catarro1.db.dataObjects.PersonaDb;
 import com.sebas.catarro1.db.dataObjects.SintomaDB;
-import com.sebas.catarro1.persona.ActividadPersona;
 import com.sebas.catarro1.util.ElegirFechaFragment;
 import com.sebas.catarro1.util.ElegirHoraFragment;
 import com.sebas.catarro1.util.Miscelanea;
 import com.sebas.catarro1.util.SebasUnCheckedException;
 
-import java.security.IdentityScope;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -129,8 +122,11 @@ public class ActividadNuevoSintoma extends ActionBarActivity {
             case android.R.id.home:
                 return true;
             case R.id.guardar:
-                if (!bDatosOk())
+                boolean resultado = true;
+                if (!bDatosOk()) {
                     Toast.makeText(this, "Introduzca los datos requeridos", Toast.LENGTH_SHORT).show();
+                    resultado = false;
+                }
                 else {
 //                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
                     try {
@@ -139,9 +135,9 @@ public class ActividadNuevoSintoma extends ActionBarActivity {
                         Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
+                    this.finish();
                 }
-                this.finish();
-                return true;
+                return resultado;
             case R.id.cancelar:
                 Toast.makeText(this, "nok", Toast.LENGTH_SHORT).show();
                 this.finish();
@@ -163,14 +159,14 @@ public class ActividadNuevoSintoma extends ActionBarActivity {
         String hora = tvHoraSintoma.getText().toString();
         String fechaHora = fechaCatarro + " " + hora;
 
-        Date date = Miscelanea.dameStringFechaHoraComoFecha(fechaCatarro);
-        Double valor = new Double(etValor.getText().toString());
+        Date date = Miscelanea.dameStringFechaHoraComoFecha(fechaHora);
+        Double valor = Double.valueOf(etValor.getText().toString());
 
-        if (null == catarroID) {
-            SintomaDB sintomaDB = new SintomaDB(etNombreSintoma.getText().toString(), valor, etUnidadesValor.getText().toString(), etComentariosCatarro.getText().toString(),  date.getTime());
+        if (null == sintomaID) {
+            SintomaDB sintomaDB = new SintomaDB(etNombreSintoma.getText().toString(), valor, etUnidadesValor.getText().toString(), etComentariosCatarro.getText().toString(),  date.getTime(), catarroID);
             sintomaDB.addToDB(baseDePatos);
         } else {
-            SintomaDB sintomaDB = new SintomaDB(sintomaID, etNombreSintoma.getText().toString(), valor, etUnidadesValor.getText().toString(), etComentariosCatarro.getText().toString(),  date.getTime());
+            SintomaDB sintomaDB = new SintomaDB(sintomaID, etNombreSintoma.getText().toString(), valor, etUnidadesValor.getText().toString(), etComentariosCatarro.getText().toString(),  date.getTime(), catarroID);
             int rowsUpdated = sintomaDB.updateToDB(baseDePatos);
             if (0 == rowsUpdated) throw new SebasUnCheckedException();
 

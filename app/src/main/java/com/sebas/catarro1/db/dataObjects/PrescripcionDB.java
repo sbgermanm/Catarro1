@@ -21,8 +21,9 @@ public class PrescripcionDB implements DataBaseTable {
     private Integer numeroTomas;
     private String comentarioPrescripcion;
     private Long fechaInicio;
+    private Integer idCatarro;
 
-    public PrescripcionDB(Integer id, String nombre, Double posologia, Integer cadencia, Integer duracion, Integer numTomas, String comentario,  Long fecha) {
+    public PrescripcionDB(Integer id, String nombre, Double posologia, Integer cadencia, Integer duracion, Integer numTomas, String comentario,  Long fecha,  Integer catarroID) {
         this.idPrescripcion = id;
         this.nombreMedicamento = nombre;
         this.valorPosologia = posologia;
@@ -31,9 +32,10 @@ public class PrescripcionDB implements DataBaseTable {
         this.numeroTomas = numTomas;
         this.comentarioPrescripcion = comentario;
         this.fechaInicio = fecha;
+        this.idCatarro = catarroID;
     }
 
-    public PrescripcionDB(String nombre, Double posologia, Integer cadencia, Integer duracion, Integer numTomas, String comentario,  Long fecha) {
+    public PrescripcionDB(String nombre, Double posologia, Integer cadencia, Integer duracion, Integer numTomas, String comentario,  Long fecha,  Integer catarroID) {
         this.nombreMedicamento = nombre;
         this.valorPosologia = posologia;
         this.cadenciaEnHoras = cadencia;
@@ -41,89 +43,77 @@ public class PrescripcionDB implements DataBaseTable {
         this.numeroTomas = numTomas;
         this.comentarioPrescripcion = comentario;
         this.fechaInicio = fecha;
+        this.idCatarro = catarroID;
     }
 
+
+
+    public Integer getIdCatarro() {
+        return idCatarro;
+    }
+    public void setIdCatarro(Integer idCatarro) {
+        this.idCatarro = idCatarro;
+    }
     public Integer getCadenciaEnHoras() {
         return cadenciaEnHoras;
     }
-
     public void setCadenciaEnHoras(Integer cadenciaEnHoras) {
         this.cadenciaEnHoras = cadenciaEnHoras;
     }
-
     public String getComentarioPrescripcion() {
         return comentarioPrescripcion;
     }
-
     public void setComentarioPrescripcion(String comentarioPrescripcion) {
         this.comentarioPrescripcion = comentarioPrescripcion;
     }
-
     public Integer getDuracionEnDias() {
         return duracionEnDias;
     }
-
     public void setDuracionEnDias(Integer duracionEnDias) {
         this.duracionEnDias = duracionEnDias;
     }
-
     public Long getFechaInicio() {
         return fechaInicio;
     }
-
     public void setFechaInicio(Long fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-
     public Integer getIdPrescripcion() {
         return idPrescripcion;
     }
-
     public void setIdPrescripcion(Integer idPrescripcion) {
         this.idPrescripcion = idPrescripcion;
     }
-
     public String getNombreMedicamento() {
         return nombreMedicamento;
     }
-
     public void setNombreMedicamento(String nombreMedicamento) {
         this.nombreMedicamento = nombreMedicamento;
     }
-
     public Integer getNumeroTomas() {
         return numeroTomas;
     }
-
     public void setNumeroTomas(Integer numeroTomas) {
         this.numeroTomas = numeroTomas;
     }
-
     public Double getValorPosologia() {
         return valorPosologia;
     }
-
     public void setValorPosologia(Double valorPosologia) {
         this.valorPosologia = valorPosologia;
     }
 
+
     public static final String TABLE_NAME = "prescripcion";
+    private static final String FOREING_KEY = COLUMNS.ID_CATARRO.toString() ;
 
     public static String getPKColumnName() {
         return String.valueOf(COLUMNS.ID_PRESCRIPCION);
     }
 
 
-    private static enum COLUMNS {ID_PRESCRIPCION, NOMBRE, POSOLOGIA, CADENCIA, DURACION, NUMTOMAS, COMENTARIO, FECHA};
+    private static enum COLUMNS {ID_PRESCRIPCION, NOMBRE, POSOLOGIA, CADENCIA, DURACION, NUMTOMAS, COMENTARIO, FECHA, ID_CATARRO};
 
-
-
-
-    // NO TOCAR, ESTO HAY QUE REPETIRLO EN TODAS ESTAS CLASES
-    public static List<PrescripcionDB> selectAll(BaseDePatos baseDePatos) {
-        Cursor cursor = baseDePatos.selectAll(TABLE_NAME);
-        return prescripcionesFromCursor(cursor);
-    }
 
     private static List<PrescripcionDB> prescripcionesFromCursor(Cursor cursor) {
         int num = cursor.getCount();
@@ -136,10 +126,11 @@ public class PrescripcionDB implements DataBaseTable {
         return prescripciones;
     }
 
-    public static List<PrescripcionDB> selectAllOrderedByDateDesc(BaseDePatos baseDePatos) {
-        Cursor cursor = baseDePatos.selectAll(TABLE_NAME, COLUMNS.FECHA + " DESC");
+    public static List<PrescripcionDB> findByFKOrderedByDateDesc(BaseDePatos baseDePatos, Integer id) {
+        Cursor cursor = baseDePatos.findByFK(TABLE_NAME, FOREING_KEY, id, COLUMNS.FECHA + " DESC");
         return prescripcionesFromCursor(cursor);
     }
+
 
 
 
@@ -174,6 +165,7 @@ public class PrescripcionDB implements DataBaseTable {
         values.put(COLUMNS.NUMTOMAS.toString(), this.getNumeroTomas());
         values.put(COLUMNS.COMENTARIO.toString(), this.getComentarioPrescripcion());
         values.put(COLUMNS.FECHA.toString(), this.getFechaInicio());
+        values.put(COLUMNS.ID_CATARRO.toString(), this.getIdCatarro());
         return values;
     }
 
@@ -186,21 +178,6 @@ public class PrescripcionDB implements DataBaseTable {
 
 
 
-               /*
-     private Integer idPrescripcion;
-
-
-    private String nombreMedicamento;
-    private Double valorPosologia;
-    private Integer cadenciaEnHoras;
-    private Integer duracionEnDias;
-    private Integer numeroTomas;
-    private String comentarioPrescripcion;
-    private Long fechaInicio;
-     */
-
-
-
     private static PrescripcionDB getPrescripcionFromCursor(Cursor cursor) {
         Integer id = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_PRESCRIPCION.toString()));
         String nombre = cursor.getString(cursor.getColumnIndex(COLUMNS.NOMBRE.toString()));
@@ -210,10 +187,9 @@ public class PrescripcionDB implements DataBaseTable {
         Integer numtomas = cursor.getInt(cursor.getColumnIndex(COLUMNS.NUMTOMAS.toString()));
         String comentario = cursor.getString(cursor.getColumnIndex((COLUMNS.COMENTARIO.toString())));
         Long fecha = cursor.getLong(cursor.getColumnIndex(COLUMNS.FECHA.toString()));
+        Integer catarroID = cursor.getInt(cursor.getColumnIndex(COLUMNS.ID_CATARRO.toString()));
 
-        PrescripcionDB p = new PrescripcionDB(id, nombre, valor, cadencia, duracion, numtomas, comentario, fecha);
-
-        return p;
+        return new PrescripcionDB(id, nombre, valor, cadencia, duracion, numtomas, comentario, fecha, catarroID);
     }
 
 
@@ -228,6 +204,7 @@ public class PrescripcionDB implements DataBaseTable {
                 + COLUMNS.NUMTOMAS + " INTEGER"
                 + COLUMNS.COMENTARIO + " TEXT, "
                 + COLUMNS.FECHA + " INTEGER"
+                + COLUMNS.ID_CATARRO + " INTEGER"
                 + ")";
     }
 
