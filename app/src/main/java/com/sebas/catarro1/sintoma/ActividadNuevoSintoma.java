@@ -68,11 +68,13 @@ public class ActividadNuevoSintoma extends ActionBarActivity {
         } else {
             Bundle bundleFechaInicial = Miscelanea.dameFechaInicial();
             tvFechaSintoma.setText(Miscelanea.dameFechaComoString(bundleFechaInicial.getInt("anno"), bundleFechaInicial.getInt("mes"), bundleFechaInicial.getInt("dia")));
+            tvHoraSintoma.setText(Miscelanea.dameHoraComoString(bundleFechaInicial.getInt("hora"), bundleFechaInicial.getInt("minutos")));
+
         }
 
 
         // Set up action bar.
-        // de momento no mostramos el UP, aunque el codigo está
+        // de momento no mostramos el UP, aunque el codigo esta
         final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 

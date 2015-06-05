@@ -192,7 +192,7 @@ public class SintomaDB implements DataBaseTable {
                 + COLUMNS.VALOR +  " REAL, "
                 + COLUMNS.UNIDAD_VALOR + " TEXT, "
                 + COLUMNS.COMENTARIO + " TEXT, "
-                + COLUMNS.FECHA + " INTEGER"
+                + COLUMNS.FECHA + " INTEGER,"
                 + COLUMNS.ID_CATARRO + " INTEGER"
                 + ")";
     }
@@ -203,7 +203,7 @@ public class SintomaDB implements DataBaseTable {
         aux += ", " + Miscelanea.dameHoraComoString(this.fechaSintoma);
         aux += ", " + this.nombreSintoma;
         aux += ", " + this.valorSintoma;
-        aux += ", " + this.unidadesValorSintoma;
+        aux += " " + this.unidadesValorSintoma;
         return aux;
 
     }

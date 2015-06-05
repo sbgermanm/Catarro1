@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by sgerman on 11/05/2015.
@@ -46,13 +47,13 @@ import java.util.Date;
  * z  Time zone  General time zone  Pacific Standard Time; PST; GMT-08:00
  * Z  Time zone  RFC 822 time zone  -0800
  * X  Time zone  ISO 8601 time zone  -08; -0800; -08:00
- * Pattern letters are usually repeated, as their number determines the exact presentation: •Text: For formatting, if the number of pattern letters is 4 or more, the full form is used; otherwise a short or abbreviated form is used if available. For parsing, both forms are accepted, independent of the number of pattern letters.
+ * Pattern letters are usually repeated, as their number determines the exact presentation: Text: For formatting, if the number of pattern letters is 4 or more, the full form is used; otherwise a short or abbreviated form is used if available. For parsing, both forms are accepted, independent of the number of pattern letters.
  * <p/>
  * <p/>
- * •Number: For formatting, the number of pattern letters is the minimum number of digits, and shorter numbers are zero-padded to this amount. For parsing, the number of pattern letters is ignored unless it's needed to separate two adjacent fields.
+ * Number: For formatting, the number of pattern letters is the minimum number of digits, and shorter numbers are zero-padded to this amount. For parsing, the number of pattern letters is ignored unless it's needed to separate two adjacent fields.
  * <p/>
  * <p/>
- * •Year: If the formatter's Calendar is the Gregorian calendar, the following rules are applied.
+ * Year: If the formatter's Calendar is the Gregorian calendar, the following rules are applied.
  * ?For formatting, if the number of pattern letters is 2, the year is truncated to 2 digits; otherwise it is interpreted as a number.
  * ?For parsing, if the number of pattern letters is more than 2, the year is interpreted literally, regardless of the number of digits. So using the pattern "MM/dd/yyyy", "01/11/12" parses to Jan 11, 12 A.D.
  * ?For parsing with the abbreviated year pattern ("y" or "yy"), SimpleDateFormat must interpret the abbreviated year relative to some century. It does this by adjusting dates to be within 80 years before and 20 years after the time the SimpleDateFormat instance is created. For example, using a pattern of "MM/dd/yy" and a SimpleDateFormat instance created on Jan 1, 1997, the string "01/11/12" would be interpreted as Jan 11, 2012 while the string "05/04/64" would be interpreted as May 4, 1964. During parsing, only strings consisting of exactly two digits, as defined by Character.isDigit(char), will be parsed into the default century. Any other numeric string, such as a one digit string, a three or more digit string, or a two digit string that isn't all digits (for example, "-1"), is interpreted literally. So "01/02/3" or "01/02/003" are parsed, using the same pattern, as Jan 2, 3 AD. Likewise, "01/02/-3" is parsed as Jan 2, 4 BC.
@@ -61,12 +62,12 @@ import java.util.Date;
  * If week year 'Y' is specified and the calendar doesn't support any  week years, the calendar year ('y') is used instead. The support of week years can be tested with a call to getCalendar().isWeekDateSupported().
  * <p/>
  * <p/>
- * •Month: If the number of pattern letters is 3 or more, the month is interpreted as text; otherwise, it is interpreted as a number.
+ * Month: If the number of pattern letters is 3 or more, the month is interpreted as text; otherwise, it is interpreted as a number.
  * ?Letter M produces context-sensitive month names, such as the embedded form of names. If a DateFormatSymbols has been set explicitly with constructor SimpleDateFormat(String, DateFormatSymbols) or method setDateFormatSymbols(DateFormatSymbols), the month names given by the DateFormatSymbols are used.
  * ?Letter L produces the standalone form of month names.
  * <p/>
  * <p/>
- * •General time zone: Time zones are interpreted as text if they have names. For time zones representing a GMT offset value, the following syntax is used:      GMTOffsetTimeZone:
+ * General time zone: Time zones are interpreted as text if they have names. For time zones representing a GMT offset value, the following syntax is used:      GMTOffsetTimeZone:
  * GMT Sign Hours : Minutes
  * Sign: one of
  * + -
@@ -82,14 +83,14 @@ import java.util.Date;
  * <p/>
  * <p/>
  * <p/>
- * •RFC 822 time zone: For formatting, the RFC 822 4-digit time zone format is used:      RFC822TimeZone:
+ * RFC 822 time zone: For formatting, the RFC 822 4-digit time zone format is used:      RFC822TimeZone:
  * Sign TwoDigitHours Minutes
  * TwoDigitHours:
  * Digit Digit
  * TwoDigitHours must be between 00 and 23. Other definitions are as for general time zones.
  * For parsing, general time zones are also accepted.
  * <p/>
- * •ISO 8601 Time zone: The number of pattern letters designates the format for both formatting and parsing as follows:      ISO8601TimeZone:
+ * ISO 8601 Time zone: The number of pattern letters designates the format for both formatting and parsing as follows:      ISO8601TimeZone:
  * OneLetterISO8601TimeZone
  * TwoLetterISO8601TimeZone
  * ThreeLetterISO8601TimeZone
@@ -176,8 +177,9 @@ public class Miscelanea {
 
         if (diasEntreFechas == 0) aux = "Hoy";
         if (diasEntreFechas == 1) aux = "Ayer";
-        if ((diasEntreFechas > 1) && (diasEntreFechas < 7))
-            aux = "Hace " + diasEntreFechas + " días";
+        if ((diasEntreFechas > 1) && (diasEntreFechas < 8))
+            aux = "Hace " + diasEntreFechas + " dÃ­as";
+        if (diasEntreFechas > 7) aux = Miscelanea.dameFechaComoString(fecha);
         return aux;
 
     }
@@ -219,6 +221,9 @@ public class Miscelanea {
         fecha.putInt("dia", cal.get(Calendar.DAY_OF_MONTH));
         fecha.putInt("mes", cal.get(Calendar.MONTH));
         fecha.putInt("anno", cal.get(Calendar.YEAR));
+        fecha.putInt("hora", cal.get(Calendar.HOUR_OF_DAY));
+        fecha.putInt("minutos", cal.get(Calendar.MINUTE));
+
 
         return fecha;
     }

@@ -195,7 +195,7 @@ public class PrescripcionDB implements DataBaseTable {
 
     public static String getCreateTable() {
         return "CREATE TABLE " +
-                TABLE_NAME + "("
+                TABLE_NAME + " ("
                 + COLUMNS.ID_PRESCRIPCION + " INTEGER PRIMARY KEY, "
                 + COLUMNS.NOMBRE + " TEXT, "
                 + COLUMNS.POSOLOGIA +  " REAL, "
@@ -203,7 +203,7 @@ public class PrescripcionDB implements DataBaseTable {
                 + COLUMNS.DURACION + " INTEGER"
                 + COLUMNS.NUMTOMAS + " INTEGER"
                 + COLUMNS.COMENTARIO + " TEXT, "
-                + COLUMNS.FECHA + " INTEGER"
+                + COLUMNS.FECHA + " INTEGER, "
                 + COLUMNS.ID_CATARRO + " INTEGER"
                 + ")";
     }

@@ -65,7 +65,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
 
 
         // Set up action bar.
-        // de momento no mostramos el UP, aunque el codigo está
+        // de momento no mostramos el UP, aunque el codigo esta
         final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 
@@ -209,7 +209,7 @@ public class ActividadNuevoCatarro extends ActionBarActivity {
         eso causa que, aunque no se haya puesto en el on_create esto:
         actionBar.setDisplayHomeAsUpEnabled(true);
         salga el boton de UP.
-        Va al padre, al on_create pero ahí el personID está vacio.
+        Va al padre, al on_create pero ahi el personID esta vacio.
      */
 //
     //
