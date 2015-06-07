@@ -58,4 +58,6 @@
     <string name="etHoraSintoma">18:35</string>
     <string name="lbModificarSintoma">Modificar Sintoma</string>
     <string name="etNombreSintoma">Nombre sintoma</string>
+    <string name="title_activity_actividad_prescripcion">ActividadPrescripcion</string>
+    <string name="etNombreMedicamento">Nombre medicamento</string>
 </resources>

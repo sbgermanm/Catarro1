@@ -40,6 +40,10 @@
             android:name=".sintoma.ActividadNuevoSintoma"
             android:label="@string/title_activity_actividad_nuevo_sintoma" >
         </activity>
+        <activity
+            android:name=".prescripcion.ActividadPrescripcion"
+            android:label="@string/title_activity_actividad_prescripcion" >
+        </activity>
     </application>
 
 </manifest>
