@@ -47,7 +47,7 @@
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
 
-        >
+        android:background="#1954f5ff">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -55,6 +55,22 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_reloj" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:background="#3454f5ff">
+
+    <LinearLayout
+        android:id="@+id/linearLayout21"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+
+        android:background="#3454f5ff"
+        android:layout_weight="1">
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -109,14 +125,68 @@
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/por_kg"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/textView2" />
         </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/por_kg"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/textView2" />
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout22"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_below="@id/linearLayout21"
+
+            android:background="#3563ffa4"
+            android:layout_weight="1">
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/xtoma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cadaToma"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/tvcadaToma" />
+
+                <RadioButton
+                    android:id="@+id/aldia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aldia"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/tvaldia" />
+            </RadioGroup>
+
+
+
+        </LinearLayout>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

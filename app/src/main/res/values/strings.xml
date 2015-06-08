@@ -63,4 +63,6 @@
     <string name="etPosologiatoma">5.25</string>
     <string name="etPosologiakg">33.6</string>
     <string name="por_kg">por Kg</string>
+    <string name="cadaToma">cada toma</string>
+    <string name="aldia">al dia</string>
 </resources>
