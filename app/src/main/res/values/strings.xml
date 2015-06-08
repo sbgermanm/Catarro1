@@ -60,4 +60,7 @@
     <string name="etNombreSintoma">Nombre sintoma</string>
     <string name="title_activity_actividad_prescripcion">ActividadPrescripcion</string>
     <string name="etNombreMedicamento">Nombre medicamento</string>
+    <string name="etPosologiatoma">5.25</string>
+    <string name="etPosologiakg">33.6</string>
+    <string name="por_kg">por Kg</string>
 </resources>
