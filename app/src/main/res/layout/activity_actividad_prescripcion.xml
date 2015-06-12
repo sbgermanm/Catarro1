@@ -45,9 +45,9 @@
         android:layout_alignParentStart="true"
         android:layout_below="@id/linearLayout1"
         android:layout_marginTop="30dp"
-        android:orientation="horizontal"
+        android:background="#1954f5ff"
 
-        android:background="#1954f5ff">
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -55,137 +55,134 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_reloj" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout20"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        android:background="#3454f5ff">
-
-    <LinearLayout
-        android:id="@+id/linearLayout21"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-
-        android:background="#3454f5ff"
-        android:layout_weight="1">
-
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/cantidadxtoma"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:onClick="onRadioButtonClicked" />
-
-
-            <EditText
-                android:id="@+id/posologiatoma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:ems="2"
-                android:inputType="numberDecimal"
-                android:text="@string/etPosologiatoma"
-
-                android:textSize="15dp" />
-
-            <Spinner
-                android:id="@+id/unidadesxtoma_spinner"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
-
-            <RadioButton
-                android:id="@+id/cantidadxkg"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:onClick="onRadioButtonClicked" />
-
-            <EditText
-                android:id="@+id/posologiakg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:ems="2"
-                android:inputType="numberDecimal"
-                android:text="@string/etPosologiakg"
-
-                android:textSize="15dp" />
-
-            <Spinner
-                android:id="@+id/unidadesxkg_spinner"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/por_kg"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/textView2" />
-        </RadioGroup>
-
-
-
-    </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/linearLayout22"
+            android:id="@+id/linearLayout20"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/linearLayout21"
+            android:layout_height="wrap_content"
+            android:background="#3454f5ff"
 
-            android:background="#3563ffa4"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
-            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+            <LinearLayout
+                android:id="@+id/linearLayout21"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+
+                android:background="#3454f5ff"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/xtoma"
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked" />
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/cantidadxtoma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:onClick="onRadioButtonClicked" />
 
 
-                <TextView
+                    <EditText
+                        android:id="@+id/posologiatoma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:ems="2"
+                        android:inputType="numberDecimal"
+                        android:text="@string/etPosologiatoma"
+
+                        android:textSize="15dp" />
+
+                    <Spinner
+                        android:id="@+id/unidadesxtoma_spinner"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+
+                    <RadioButton
+                        android:id="@+id/cantidadxkg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:onClick="onRadioButtonClicked" />
+
+                    <EditText
+                        android:id="@+id/posologiakg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:ems="2"
+                        android:inputType="numberDecimal"
+                        android:text="@string/etPosologiakg"
+
+                        android:textSize="15dp" />
+
+                    <Spinner
+                        android:id="@+id/unidadesxkg_spinner"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/por_kg" />
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout22"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/linearLayout21"
+                android:layout_weight="1"
+
+                android:background="#3563ffa4"
+                android:orientation="horizontal">
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cadaToma"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/tvcadaToma" />
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/aldia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/aldia"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/tvaldia" />
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/xtoma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked" />
 
 
+                    <TextView
+                        android:id="@+id/tvcadaToma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/cadaToma" />
 
+                    <RadioButton
+                        android:id="@+id/aldia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked" />
+
+                    <TextView
+                        android:id="@+id/tvaldia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/aldia" />
+                </RadioGroup>
+
+
+            </LinearLayout>
         </LinearLayout>
-        </LinearLayout>
-
 
 
     </LinearLayout>
@@ -197,7 +194,38 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/linearLayout2"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_pipeta"
+            />
+
+        <EditText
+            android:id="@+id/numVecesDia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ems="1"
+            android:inputType="number"
+            android:text="@string/numVecesDia"
+
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/lbVecesAlDia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+
+            android:text="@string/lbVecesAlDia" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -205,6 +233,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/linearLayout4"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/linearLayout3"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_calendar"
+            />
+
+        <EditText
+            android:id="@+id/numDias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ems="1"
+            android:inputType="number"
+            android:text="@string/numDias"
+
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/lbNumDias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+
+            android:text="@string/lbNumDias" />
+
+
+
+    </LinearLayout>
 </RelativeLayout>

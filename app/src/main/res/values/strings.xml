@@ -65,4 +65,9 @@
     <string name="por_kg">por Kg</string>
     <string name="cadaToma">cada toma</string>
     <string name="aldia">al dia</string>
+    <string name="lbadministar">Administrar</string>
+    <string name="numVecesDia">3</string>
+    <string name="lbVecesAlDia">veces al dia (0.15 ml x kg, 4.8 ml para 18kg)</string>
+    <string name="numDias">7</string>
+    <string name="lbNumDias">días (21 tomas)</string>
 </resources>
